@@ -1,7 +1,16 @@
 package lyli.dessin;
 
 import java.util.ArrayList;
-
+/**
+ * <b>"L'implementation de la class  GroupeForme.</b>
+ * un groupe de forme a :
+ * <ul>
+ * <li>IdGroupe</li>
+ * <li>formes</li>
+ * </ul>
+ *appliquation du pattern `Composite`.
+ * @author TOUAZI,Lylia
+ */
 public class GroupeForme extends Forme{
 	/**
 	 * idenfiant du groupe.
