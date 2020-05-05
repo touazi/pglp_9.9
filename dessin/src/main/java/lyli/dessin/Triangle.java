@@ -20,7 +20,7 @@ public class Triangle extends Forme{
 	 * @param point1
 	 *  le point1 du Triangle. 
 	 * @param point2
-	 * le point2 du Triangle.
+	 * le point2	 du Triangle.
 	 * @param point3
 	 * le point3 du Triangle.
 	 * */
