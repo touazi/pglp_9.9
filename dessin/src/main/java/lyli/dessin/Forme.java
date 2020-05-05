@@ -1,8 +1,8 @@
 package lyli.dessin;
 
 /**
- * @author lylia
- *
+ * <b>"L'implementation de la class Forme.</b>
+ * @author TOUAZI,Lylia
  */
 public abstract class Forme {
     /**
