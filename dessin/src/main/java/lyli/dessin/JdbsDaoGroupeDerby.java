@@ -3,8 +3,6 @@ import java.sql.*;
 import java.util.Iterator;
 import java.util.List;
 
-import lyli.dessin.exeption.PersonneDoncExistException;
-
 public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 	private static String dburl = CeartionBDDREBY.dburl;
 	@Override

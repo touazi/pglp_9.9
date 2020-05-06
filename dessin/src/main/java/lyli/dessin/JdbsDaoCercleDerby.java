@@ -3,8 +3,10 @@ package lyli.dessin;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import lyli.dessin.exeption.FormeDoncExistException;
 import lyli.dessin.exeption.FormeExisteDeja;
 
 public class JdbsDaoCercleDerby implements DAO<Cercle> {
@@ -30,10 +32,29 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 	}
 
 	@Override
-	public Cercle read(String id) {
+	public Cercle read(String id) throws FormeDoncExistException {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		Cercle cercle = null;
+		try (Connection connect = DriverManager.getConnection(dburl)) {
+			PreparedStatement prepare = connect.prepareStatement(
+					"SELECT * FROM cercle WHERE NameForme = ?  ");
+			prepare.setString(1, id);
+			ResultSet result = prepare.executeQuery();
+			
+			if(result.next()) {
+				cercle =   new Cercle (result.getString("NameForme"),
+							new Coordonnee(result.getInt("centre_x"), result.getInt("centre_y")), 
+							result.getInt("rayon"));
+				result.close();
+				}
+			else { 
+		        throw new FormeDoncExistException("Le cercle que vous chercher n'Ã©xiste pas :( !");}
+		}
+		catch (SQLException e) {
+			e.getMessage();
+		}
+		return cercle;
+		}
 
 	@Override
 	public Cercle update(Cercle obj) {

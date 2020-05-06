@@ -3,8 +3,10 @@ package lyli.dessin;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import lyli.dessin.exeption.FormeDoncExistException;
 import lyli.dessin.exeption.FormeExisteDeja;
 
 public class JdbsDaoTriangleDerby implements DAO<Triangle> {
@@ -34,10 +36,30 @@ public class JdbsDaoTriangleDerby implements DAO<Triangle> {
 	}
 
 	@Override
-	public Triangle read(String id) {
+	public Triangle read(String id) throws FormeDoncExistException {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		Triangle triangle = null;
+		try (Connection connect = DriverManager.getConnection(dburl)) {
+			PreparedStatement prepare = connect.prepareStatement(
+					"SELECT * FROM triangle WHERE NameForme = ?  ");
+			prepare.setString(1, id);
+			ResultSet result = prepare.executeQuery();
+			
+			if(result.next()) {
+				triangle =   new Triangle (result.getString("NameForme"),
+							new Coordonnee(result.getInt("point1_x"), result.getInt("point1_y")), 
+							new Coordonnee(result.getInt("point2_x"), result.getInt("point2_y")),
+							new Coordonnee(result.getInt("point3_x"), result.getInt("point3_y")));
+				result.close();
+				}
+			else { 
+		        throw new FormeDoncExistException("Le triangle que vous chercher n'Ã©xiste pas :( !");}
+		}
+		catch (SQLException e) {
+			e.getMessage();
+		}
+		return triangle;
+		}
 
 	@Override
 	public Triangle update(Triangle obj) {

@@ -3,8 +3,10 @@ package lyli.dessin;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import lyli.dessin.exeption.FormeDoncExistException;
 import lyli.dessin.exeption.FormeExisteDeja;
 
 public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
@@ -31,10 +33,30 @@ public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
 	}
 
 	@Override
-	public Rectangle read(String id) {
+	public Rectangle read(String id) throws FormeDoncExistException {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		Rectangle rectangle = null;
+		try (Connection connect = DriverManager.getConnection(dburl)) {
+			PreparedStatement prepare = connect.prepareStatement(
+					"SELECT * FROM rectangle WHERE NameForme = ?  ");
+			prepare.setString(1, id);
+			ResultSet result = prepare.executeQuery();
+			
+			if(result.next()) {
+				rectangle =   new Rectangle (result.getString("NameForme"),
+							new Coordonnee(result.getInt("topLeft_x"), result.getInt("topLeft_y")), 
+							result.getInt("sideTop"),
+							result.getInt("sideLeft"));
+				result.close();
+				}
+			else { 
+		        throw new FormeDoncExistException("Le Rectangle que vous chercher n'Ã©xiste pas :( !");}
+		}
+		catch (SQLException e) {
+			e.getMessage();
+		}
+		return rectangle;
+		}
 
 	@Override
 	public Rectangle update(Rectangle obj) {

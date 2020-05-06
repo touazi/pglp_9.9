@@ -4,6 +4,7 @@ import java.sql.*;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import lyli.dessin.exeption.FormeDoncExistException;
 import lyli.dessin.exeption.FormeExisteDeja;
 import lyli.dessin.exeption.TableExisteDeja;
 
@@ -13,7 +14,7 @@ import lyli.dessin.exeption.TableExisteDeja;
  */
 public class App 
 {
-    public static void main( String[] args ) throws SQLException, TableExisteDeja, FormeExisteDeja
+    public static void main( String[] args ) throws SQLException, TableExisteDeja, FormeExisteDeja, FormeDoncExistException
     {
         System.out.println( "Hello World!" );
       
@@ -21,8 +22,9 @@ public class App
     	JdbsDaoCarreDerby ppp=new JdbsDaoCarreDerby();
     	Carre pCreate=ppp.create(pm);
     	//System.out.println(pCreate.getNameForme()+  "   ccccccccccc  " + pm.getNameForme());
-    	
-    	
+    	Carre c;
+    	c=ppp.read("lylia");
+    	c.affiche();
     	 Cercle cercle = new Cercle ("lyliacercle",new Coordonnee(4,5), 5);
     	JdbsDaoCercleDerby pppcercle =new JdbsDaoCercleDerby();
     	Cercle pCreateCercle =pppcercle.create(cercle);
@@ -50,12 +52,7 @@ public class App
         g.ajouterForme(rectangle);
     	g.ajouterForme(cercle);
 		creategroupe=groupeder.create(g);
-    	for (Forme p :g.getListForm()) {
-			p.affiche(); 
-			}
-     	for (Forme p : creategroupe.getListForm()) {
-			p.affiche(); 
-			}
+ 
     }
 
     

@@ -1,5 +1,6 @@
 package lyli.dessin;
 
+import lyli.dessin.exeption.FormeDoncExistException;
 import lyli.dessin.exeption.FormeExisteDeja;
 
 /**
@@ -24,8 +25,9 @@ public interface DAO<T> {
 	*le nom du fichier qui sera lu.
 	*@return
 	*un objet de type T
+	 * @throws FormeDoncExistException 
 	*/
-	T read(String id);
+	T read(String id) throws FormeDoncExistException;
 	/**
 	*methode update.
 	*@param obj
