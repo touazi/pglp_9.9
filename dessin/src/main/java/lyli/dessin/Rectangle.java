@@ -1,7 +1,14 @@
 package lyli.dessin;
-
-public class Rectangle extends Forme {
+/**
+ *class Rectangle
+ * @author TOUAZI,Lylia
+ */
+public class Rectangle extends Forme implements java.io.Serializable {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * point haut à gauche du rectangle.
      */
     private Coordonnee topLeft;
@@ -39,9 +46,9 @@ public class Rectangle extends Forme {
 	 * le décalage de la coorrdonnee sur l'ax des Y
 	 * */
 	@Override
-	public void move(String NameForme,int x, int y) {
-		this.topLeft.setX(this.topLeft.getX()+x);
-		this.topLeft.setY(this.topLeft.getY()+y);
+	public void move(final String NameForme, final int x, final int y) {
+		this.topLeft.setX(this.topLeft.getX() + x);
+		this.topLeft.setY(this.topLeft.getY() + y);
 		
 	}
 	/**la methode affiche.
@@ -50,9 +57,7 @@ public class Rectangle extends Forme {
 	@Override
 	public void affiche() {
         System.out.println("Rectangle(longueur = " + sideTop + ", largeur = " + sideLeft
-                + ", position point = " + topLeft + ")");
-    
-		
+                + ", position point = " + topLeft + ")");	
 	}
 	/**La methode getCoordonnee.
 	 * @return

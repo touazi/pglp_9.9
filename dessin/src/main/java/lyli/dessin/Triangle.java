@@ -1,6 +1,13 @@
 package lyli.dessin;
-
-public class Triangle extends Forme{
+/**
+ *class Triangle
+ * @author TOUAZI,Lylia
+ */
+public class Triangle extends Forme implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * le point1 du Triangle.
 	 */
@@ -13,7 +20,6 @@ public class Triangle extends Forme{
 	 * le point3 du Triangle.
 	 */
 	private Coordonnee point3;
-
 	/**Constructeur de la class Triangle.
 	 * @param NameForme
 	 * le nom de la du Triangle.
@@ -24,7 +30,8 @@ public class Triangle extends Forme{
 	 * @param point3
 	 * le point3 du Triangle.
 	 * */
-	public Triangle(String NameForme, Coordonnee point1, Coordonnee point2, Coordonnee point3) {
+	public Triangle(final String NameForme, final Coordonnee point1,
+			final Coordonnee point2, final Coordonnee point3) {
 		super(NameForme);
 		this.point1 = point1.copy();
 		this.point2 = point2.copy();
@@ -41,15 +48,13 @@ public class Triangle extends Forme{
 	 * le décalage des coorrdonnees sur l'ax des Y
 	 * */
 	@Override
-	public void move(String NameForme, int x, int y) {
-		this.point1.setX(this.point1.getX()+x);
-		this.point1.setY(this.point1.getY()+y);
-		
-		this.point2.setX(this.point2.getX()+x);
-		this.point2.setY(this.point2.getY()+y);
-		
-		this.point3.setX(this.point3.getX()+x);
-		this.point3.setY(this.point3.getY()+y);
+	public void move(final String NameForme, final int x, final int y) {
+		this.point1.setX(this.point1.getX() + x);
+		this.point1.setY(this.point1.getY() + y);
+		this.point2.setX(this.point2.getX() + x);
+		this.point2.setY(this.point2.getY() + y);
+		this.point3.setX(this.point3.getX() + x);
+		this.point3.setY(this.point3.getY() + y);
 		
 	}
 	/**la methode affiche.
@@ -58,8 +63,7 @@ public class Triangle extends Forme{
 	public void affiche() {
 	    System.out.println("Triangle(position point1 = " +  point1 + ",position point2 = " + point2
                 + ", position point3 = " + point3 + ")");
-		
-	}
+	    }
 	/**La methode getCoordonnee.
 	 * @return
 	 * la position du point1.
@@ -81,5 +85,4 @@ public class Triangle extends Forme{
 	Coordonnee getCoordonnee3() {
 		return this.point3;
 	}
-
 }

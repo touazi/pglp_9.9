@@ -7,7 +7,11 @@ package lyli.dessin;
  * @author lylia
  *
  */
-public class Cercle extends Forme {
+public class Cercle extends Forme implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * le centre du cercle.
 	 */

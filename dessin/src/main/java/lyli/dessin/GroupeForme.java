@@ -11,7 +11,11 @@ import java.util.ArrayList;
  *appliquation du pattern `Composite`.
  * @author TOUAZI,Lylia
  */
-public class GroupeForme extends Forme{
+public class GroupeForme extends Forme implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * idenfiant du groupe.
 	 * */

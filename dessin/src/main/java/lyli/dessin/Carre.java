@@ -11,7 +11,11 @@ package lyli.dessin;
  * </ul> 
  * @author TOUAZI,Lylia
  */
-public class Carre extends Forme{
+public class Carre extends Forme implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * la Coordonnee d'un poind du carre.
 	 *
@@ -69,8 +73,8 @@ public class Carre extends Forme{
 	 * */
 	@Override
 	public void move(String NameForme, int x, int y) {
-		this.topLeft.setX(this.topLeft.getX()+x);
-		this.topLeft.setY(this.topLeft.getY()+y);
+		this.topLeft.setX(this.topLeft.getX() + x);
+		this.topLeft.setY(this.topLeft.getY() + y);
 		
 	}
 
