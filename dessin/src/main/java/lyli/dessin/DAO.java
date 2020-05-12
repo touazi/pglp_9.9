@@ -27,7 +27,7 @@ public interface DAO<T> {
 	*un objet de type T
 	 * @throws FormeDoncExistException 
 	*/
-	T read(String id) throws FormeDoncExistException;
+	T read(String id) throws FormeDoncExistException ;
 	/**
 	*methode update.
 	*@param obj
@@ -40,8 +40,9 @@ public interface DAO<T> {
 	*methode delete.
 	*@param obj
 	*l'object qui sera suprimer.
+	 * @throws FormeDoncExistException 
 	*
 	*/
-	void delete(T obj) ;
+	void delete(T obj) throws FormeDoncExistException ;
 	}
 

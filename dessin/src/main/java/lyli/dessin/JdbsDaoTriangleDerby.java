@@ -68,9 +68,28 @@ public class JdbsDaoTriangleDerby implements DAO<Triangle> {
 	}
 
 	@Override
-	public void delete(Triangle obj) {
+	public void delete(Triangle obj) throws FormeDoncExistException {
 		// TODO Auto-generated method stub
-		
+		read(obj.getNameForme());
+		try (Connection connect = DriverManager.getConnection(dburl)) {
+			PreparedStatement prepareFind = connect.prepareStatement(
+					"SELECT * FROM triangle WHERE NameForme = ?  ");
+			prepareFind.setString(1, obj.getNameForme());
+			ResultSet res = prepareFind.executeQuery();
+			if(!res.next()) { throw new FormeDoncExistException(""
+					+ "Le triangle, donc le nom " + obj.getNameForme() + ",  que vous voulez suprimer"
+					+ " n'Ã©xiste pas :( !");}
+			else {
+				PreparedStatement prepare = connect.prepareStatement(
+						"DELETE FROM triangle "
+						+ "WHERE NameForme = ?");
+				prepare.setString(1, obj.getNameForme());
+				int result = prepare.executeUpdate();
+				assert result == 1;
+		}}
+		catch (SQLException e) {
+			e.getMessage();
+		}
 	}
 
 }

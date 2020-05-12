@@ -31,6 +31,7 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 			return obj;	
 	}
 
+
 	@Override
 	public Cercle read(String id) throws FormeDoncExistException {
 		// TODO Auto-generated method stub
@@ -48,8 +49,9 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 				result.close();
 				}
 			else { 
-		        throw new FormeDoncExistException("Le cercle que vous chercher n'Ã©xiste pas :( !");}
-		}
+		        throw new FormeDoncExistException("Le Cercle que vous chercher n'Ã©xiste pas :( !");}
+		
+	}
 		catch (SQLException e) {
 			e.getMessage();
 		}
@@ -63,9 +65,28 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 	}
 
 	@Override
-	public void delete(Cercle obj) {
+	public void delete(Cercle obj) throws FormeDoncExistException {
 		// TODO Auto-generated method stub
-		
+		read(obj.getNameForme());
+		try (Connection connect = DriverManager.getConnection(dburl)) {
+			PreparedStatement prepareFind = connect.prepareStatement(
+					"SELECT * FROM cercle WHERE NameForme = ?  ");
+			prepareFind.setString(1, obj.getNameForme());
+			ResultSet res = prepareFind.executeQuery();
+			if(!res.next()) { throw new FormeDoncExistException(""
+					+ "Le cercle , donc le nom " + obj.getNameForme() + ", que vous voulez suprimer"
+					+ " n'Ã©xiste pas :( !");}
+			else {
+				PreparedStatement prepare = connect.prepareStatement(
+						"DELETE FROM cercle "
+						+ "WHERE NameForme = ?");
+				prepare.setString(1, obj.getNameForme());
+				int result = prepare.executeUpdate();
+				assert result == 1;
+		}}
+		catch (SQLException e) {
+			e.getMessage();
+		}
 	}
 
 }

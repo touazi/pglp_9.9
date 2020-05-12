@@ -65,9 +65,28 @@ public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
 	}
 
 	@Override
-	public void delete(Rectangle obj) {
+	public void delete(Rectangle obj) throws FormeDoncExistException {
 		// TODO Auto-generated method stub
-		
+		read(obj.getNameForme());
+		try (Connection connect = DriverManager.getConnection(dburl)) {
+			PreparedStatement prepareFind = connect.prepareStatement(
+					"SELECT * FROM rectangle WHERE NameForme = ?  ");
+			prepareFind.setString(1, obj.getNameForme());
+			ResultSet res = prepareFind.executeQuery();
+			if(!res.next()) { throw new FormeDoncExistException(""
+					+ "Le rectangle, donc le nom " + obj.getNameForme() + ",  que vous voulez suprimer"
+					+ " n'Ã©xiste pas :( !");}
+			else {
+				PreparedStatement prepare = connect.prepareStatement(
+						"DELETE FROM rectangle "
+						+ "WHERE NameForme = ?");
+				prepare.setString(1, obj.getNameForme());
+				int result = prepare.executeUpdate();
+				assert result == 1;
+		}}
+		catch (SQLException e) {
+			e.getMessage();
+		}
 	}
 
 }

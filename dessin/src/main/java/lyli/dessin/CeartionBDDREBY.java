@@ -32,8 +32,8 @@ public class CeartionBDDREBY {
 			
 			state.addBatch(
 					
-					"CREATE TABLE Carre("
-					           + "NameForme varchar(30) primary key,"
+					"CREATE TABLE carre("
+					           + "NameForme varchar(30) PRIMARY KEY,"
 				                + "topLeft_x int,"
 				                + "topLeft_y int,"
 				                + "side int"
@@ -50,8 +50,8 @@ public class CeartionBDDREBY {
 			
 			state.addBatch(
 					
-					"CREATE TABLE Rectangle("
-							 + "NameForme varchar(30) primary key,"
+					"CREATE TABLE rectangle("
+							 + "NameForme varchar(30) PRIMARY KEY,"
 				                + "topLeft_x int,"
 				                + "topLeft_y int,"
 				                + "sideTop int,"
@@ -69,8 +69,8 @@ public class CeartionBDDREBY {
 			
 			state.addBatch(
 					
-					"CREATE TABLE Triangle("
-					           + "NameForme varchar(30) primary key,"
+					"CREATE TABLE triangle("
+					           + "NameForme varchar(30) PRIMARY KEY,"
 				                + "point1_x int,"
 				                + "point1_y int,"
 				                + "point2_x int,"
@@ -90,8 +90,8 @@ public class CeartionBDDREBY {
 			
 			state.addBatch(
 					
-					"CREATE TABLE Cercle("
-							 + "NameForme varchar(30) primary key,"
+					"CREATE TABLE cercle("
+							 + "NameForme varchar(30) PRIMARY KEY,"
 				                + "centre_x int,"
 				                + "centre_y int,"
 				                + "rayon int"
@@ -112,8 +112,8 @@ public class CeartionBDDREBY {
 			    } else {
 				state.addBatch( 
 						"CREATE TABLE appartenir("
-						+ "id VARCHAR(100),"
-						+ "nom VARCHAR(100)"
+						+ "id VARCHAR(100) PRIMARY KEY,"
+						+ "nom VARCHAR(100) PRIMARY KEY"
 						+ ")");
 			    }
 			state.executeBatch();
