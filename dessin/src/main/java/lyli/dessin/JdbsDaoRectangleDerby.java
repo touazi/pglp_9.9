@@ -58,10 +58,36 @@ public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
 		return rectangle;
 		}
 
-	@Override
-	public Rectangle update(Rectangle obj) {
-		// TODO Auto-generated method stub
-		return null;
+	@Override   
+	public Rectangle update(Rectangle obj) throws FormeDoncExistException {
+		try (Connection connect = DriverManager.getConnection(dburl)) {
+			PreparedStatement prepareFind = connect.prepareStatement(
+					"SELECT * FROM rectangle WHERE NameForme = ?  ");
+			prepareFind.setString(1, obj.getNameForme());
+			ResultSet res = prepareFind.executeQuery();
+			
+			if(!res.next()) { throw new FormeDoncExistException(""
+					+ "Le rectangle que vous voulez modifier"
+					+ " n'Ã©xiste pas :( !");}
+			else {  
+			PreparedStatement prepare = connect.prepareStatement(
+					"UPDATE rectangle SET topLeft_x = ?, "
+					+ "topLeft_y = ?, "
+					+ "sideTop = ? , "
+					+ "sideLeft = ? , "
+					+ "WHERE NameForme = ?");
+			prepare.setInt(1, obj.getCoordonnee().getX());
+			prepare.setInt(2, obj.getCoordonnee().getY());
+			prepare.setInt(4, obj.getsideLeft());
+			prepare.setInt(3, obj.getsideTop());
+			prepare.setString(5, obj.getNameForme());
+			int result = prepare.executeUpdate();
+			assert result == 1;}
+		}
+		catch (SQLException e) {
+			e.getMessage();
+		}
+		return obj;	
 	}
 
 	@Override

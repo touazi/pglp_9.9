@@ -34,8 +34,9 @@ public interface DAO<T> {
 	*l'object qui sera modifier.
 	*@return
 	*un objet de type T
+	 * @throws FormeDoncExistException 
 	*/
-	T update(T obj) ;
+	T update(T obj) throws FormeDoncExistException ;
 	/**
 	*methode delete.
 	*@param obj

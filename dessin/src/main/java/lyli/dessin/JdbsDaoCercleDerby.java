@@ -59,9 +59,32 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 		}
 
 	@Override
-	public Cercle update(Cercle obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public Cercle update(Cercle obj) throws FormeDoncExistException {
+		try (Connection connect = DriverManager.getConnection(dburl)) {
+			PreparedStatement prepareFind = connect.prepareStatement(
+					"SELECT * FROM cercle WHERE NameForme = ?  ");
+			prepareFind.setString(1, obj.getNameForme());
+			ResultSet res = prepareFind.executeQuery();
+			
+			if(!res.next()) { throw new FormeDoncExistException(""
+					+ "Le cercle que vous voulez modifier"
+					+ " n'Ã©xiste pas :( !");}
+			else {  
+			PreparedStatement prepare = connect.prepareStatement(
+					"UPDATE cercle SET centre_x = ?, "
+					+ "centre_y = ?, "
+					+ "rayon = ? WHERE NameForme = ?");
+			prepare.setInt(1, obj.getCoordonnee().getX());
+			prepare.setInt(2, obj.getCoordonnee().getY());
+			prepare.setInt(3, obj.getrayon());
+			prepare.setString(4, obj.getNameForme());
+			int result = prepare.executeUpdate();
+			assert result == 1;}
+		}
+		catch (SQLException e) {
+			e.getMessage();
+		}
+		return obj;	
 	}
 
 	@Override

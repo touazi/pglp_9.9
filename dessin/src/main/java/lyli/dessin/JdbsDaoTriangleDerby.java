@@ -15,7 +15,8 @@ public class JdbsDaoTriangleDerby implements DAO<Triangle> {
 	public Triangle create(Triangle obj) throws FormeExisteDeja {
 		try (Connection connect = DriverManager.getConnection(dburl)) {
 			PreparedStatement prepare = connect.prepareStatement(
-					"INSERT  INTO Triangle (NameForme, point1_x, point1_y, point2_x, point2_y, point3_x, point3_y)" 
+					"INSERT  INTO Triangle (NameForme, point1_x, point1_y, "
+					+ "point2_x, point2_y, point3_x, point3_y)" 
 							+ "VALUES (?, ?, ?, ?, ?, ?, ?)");
 			prepare.setString(1, obj.getNameForme());
 			prepare.setInt(2, obj.getCoordonnee1().getX());
@@ -62,9 +63,39 @@ public class JdbsDaoTriangleDerby implements DAO<Triangle> {
 		}
 
 	@Override
-	public Triangle update(Triangle obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public Triangle update(Triangle obj) throws FormeDoncExistException {
+		try (Connection connect = DriverManager.getConnection(dburl)) {
+			PreparedStatement prepareFind = connect.prepareStatement(
+					"SELECT * FROM triangle WHERE NameForme = ?  ");
+			prepareFind.setString(1, obj.getNameForme());
+			ResultSet res = prepareFind.executeQuery();
+			
+			if(!res.next()) { throw new FormeDoncExistException(""
+					+ "Le triangle que vous voulez modifier"
+					+ " n'Ã©xiste pas :( !");}
+			else {  
+			PreparedStatement prepare = connect.prepareStatement(
+					"UPDATE triangle SET point1_x = ?, "
+					+ "point1_y = ? , "
+					+ "point2_x = ? , "
+					+ "point2_y = ? , "
+					+ "point3_x = ? , "
+					+ "point3_y = ? , "
+					+ "WHERE NameForme = ?");
+			prepare.setInt(1, obj.getCoordonnee1().getX());
+			prepare.setInt(2, obj.getCoordonnee1().getY());
+			prepare.setInt(3, obj.getCoordonnee2().getX());
+			prepare.setInt(4, obj.getCoordonnee2().getY());
+			prepare.setInt(5, obj.getCoordonnee3().getX());
+			prepare.setInt(6, obj.getCoordonnee3().getY());
+			prepare.setString(7, obj.getNameForme());
+			int result = prepare.executeUpdate();
+			assert result == 1;}
+		}
+		catch (SQLException e) {
+			e.getMessage();
+		}
+		return obj;	
 	}
 
 	@Override

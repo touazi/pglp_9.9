@@ -56,9 +56,32 @@ public class JdbsDaoCarreDerby implements DAO<Carre> {
 
 
 	@Override
-	public Carre update(Carre obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public Carre update(Carre obj) throws FormeDoncExistException {
+		try (Connection connect = DriverManager.getConnection(dburl)) {
+			PreparedStatement prepareFind = connect.prepareStatement(
+					"SELECT * FROM carre WHERE NameForme = ?  ");
+			prepareFind.setString(1, obj.getNameForme());
+			ResultSet res = prepareFind.executeQuery();
+			
+			if(!res.next()) { throw new FormeDoncExistException(""
+					+ "Le carre que vous voulez modifier"
+					+ " n'Ã©xiste pas :( !");}
+			else {  
+			PreparedStatement prepare = connect.prepareStatement(
+					"UPDATE carre SET topLeft_x = ?, "
+					+ "topLeft_y = ?, "
+					+ "side = ? WHERE NameForme = ?");
+			prepare.setInt(1, obj.getCoordonnee().getX());
+			prepare.setInt(2, obj.getCoordonnee().getY());
+			prepare.setInt(3, obj.getside());
+			prepare.setString(4, obj.getNameForme());
+			int result = prepare.executeUpdate();
+			assert result == 1;}
+		}
+		catch (SQLException e) {
+			e.getMessage();
+		}
+		return obj;	
 	}
 
 	@Override
