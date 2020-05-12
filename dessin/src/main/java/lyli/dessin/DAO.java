@@ -35,8 +35,9 @@ public interface DAO<T> {
 	*@return
 	*un objet de type T
 	 * @throws FormeDoncExistException 
+	 * @throws FormeExisteDeja 
 	*/
-	T update(T obj) throws FormeDoncExistException ;
+	T update(T obj) throws FormeDoncExistException, FormeExisteDeja ;
 	/**
 	*methode delete.
 	*@param obj

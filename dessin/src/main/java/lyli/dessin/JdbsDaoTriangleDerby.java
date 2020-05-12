@@ -76,12 +76,11 @@ public class JdbsDaoTriangleDerby implements DAO<Triangle> {
 			else {  
 			PreparedStatement prepare = connect.prepareStatement(
 					"UPDATE triangle SET point1_x = ?, "
-					+ "point1_y = ? , "
-					+ "point2_x = ? , "
-					+ "point2_y = ? , "
-					+ "point3_x = ? , "
-					+ "point3_y = ? , "
-					+ "WHERE NameForme = ?");
+					+ "point1_y = ?, "
+					+ "point2_x = ?, "
+					+ "point2_y = ?, "
+					+ "point3_x = ?, "
+					+ "point3_y = ? WHERE NameForme = ?");
 			prepare.setInt(1, obj.getCoordonnee1().getX());
 			prepare.setInt(2, obj.getCoordonnee1().getY());
 			prepare.setInt(3, obj.getCoordonnee2().getX());

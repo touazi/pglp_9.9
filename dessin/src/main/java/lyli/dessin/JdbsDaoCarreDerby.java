@@ -76,11 +76,15 @@ public class JdbsDaoCarreDerby implements DAO<Carre> {
 			prepare.setInt(3, obj.getside());
 			prepare.setString(4, obj.getNameForme());
 			int result = prepare.executeUpdate();
-			assert result == 1;}
+			 assert result == 1;
+			System.out.println(result);}
 		}
 		catch (SQLException e) {
 			e.getMessage();
-		}
+		} 
+		System.out.println("lllllllllllllllllllllllllllllllllllllllllll");
+		obj.affiche();
+		System.out.println("llllllllllllllllllllllllllllllllllllllllllll");
 		return obj;	
 	}
 

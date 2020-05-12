@@ -111,9 +111,9 @@ public class CeartionBDDREBY {
 			    	throw new TableExisteDeja("TABLE ALREADY EXISTS");
 			    } else {
 				state.addBatch( 
-						"CREATE TABLE appartenir("
-						+ "id VARCHAR(100) PRIMARY KEY,"
-						+ "nom VARCHAR(100) PRIMARY KEY"
+						"CREATE TABLE appartenir ("
+						+ "id VARCHAR(100) ,"
+						+ "nom VARCHAR(100) "
 						+ ")");
 			    }
 			state.executeBatch();

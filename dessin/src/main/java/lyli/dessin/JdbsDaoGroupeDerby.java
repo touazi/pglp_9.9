@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import lyli.dessin.exeption.FormeDoncExistException;
+import lyli.dessin.exeption.FormeExisteDeja;
 
 public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 	private static String dburl = CeartionBDDREBY.dburl;
@@ -21,7 +22,7 @@ public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 			for(Iterator<Forme> it=lp.iterator(); it.hasNext();) {
 				Forme n= it.next();
 			prepare = connect.prepareStatement(
-					"INSERT INTO APPARTENIR "
+					"INSERT INTO appartenir "
 					+ "VALUES (?, ?)");
 			prepare.setString(1, obj.getNameForme());
 			prepare.setString(2, n.getNameForme());
@@ -37,13 +38,10 @@ public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 	
 	@Override
 	public GroupeForme read(String id) throws FormeDoncExistException {
-		GroupeForme groupe = new GroupeForme(id);;
-		//this.delete( groupe);
+		GroupeForme groupe = new GroupeForme(id);
 		try (Connection connect = DriverManager.getConnection(dburl)) {
-			System.out.println("Recherche " + id);
-			Statement st = connect.createStatement();
 			PreparedStatement prepares = connect.prepareStatement(
-					"SELECT * FROM APPARTENIR WHERE id = ?");
+					"SELECT * FROM appartenir WHERE id = ?");
 			prepares.setString(1,id);
 			ResultSet result = prepares.executeQuery();
 			ArrayList<Cercle> Cercles = new ArrayList<Cercle>();
@@ -121,13 +119,44 @@ public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 		}catch (SQLException e) { e.printStackTrace(); }
 		return groupe;
 	}
+	
 
 	@Override
-	public GroupeForme update(GroupeForme obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public GroupeForme update(GroupeForme obj) throws FormeDoncExistException, FormeExisteDeja {
+		GroupeForme groupe = new GroupeForme(obj.getNameForme());
+		try (Connection connect = DriverManager.getConnection(dburl)) {
+			PreparedStatement prepareFind = connect.prepareStatement(
+					"SELECT * FROM groupe WHERE id = ?  ");
+			prepareFind.setString(1, obj.getNameForme());
+		      DAO<Carre> daoCar = DaoFactory.getCarreDAO();
+		      DAO<Cercle> daoCercle = DaoFactory.getCercleDAO();
+		      DAO<Triangle> daoTriangle = DaoFactory.getTriangleDAO();
+		      DAO<Rectangle> daoRectangle = DaoFactory.getRectangleDAO();
+		      List<Forme> lp = obj.getListForm();
+				for(Iterator<Forme> it=lp.iterator(); it.hasNext();) {
+		    	Forme f = it.next();
+		    	System.out.println("===================================");
+		    	f.affiche();
+		    	System.out.println("===================================");
+		    	if (f instanceof Cercle) {
+		    		groupe.ajouterForme(daoCercle.update((Cercle) f));}
+		    	
+		    	if (f instanceof Rectangle) {
+		    			daoRectangle.update((Rectangle) f);}
+		    	if (f instanceof Triangle) {
+		    		    	daoTriangle.update((Triangle) f);}
+		    	if (f instanceof Carre) {
+		    			groupe.ajouterForme(daoCar.update((Carre) f));}
+		      }
+
+		    } catch (SQLException e) {
+		      e.printStackTrace();
+		    } 
+		obj.affiche();
+		    return obj;
 	}
 
+	
 	@Override
 	public void delete(GroupeForme obj) throws FormeDoncExistException {
 		// TODO Auto-generated method stub
@@ -156,15 +185,11 @@ public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 					 prepare.setString(2, forme.getNameForme());
 					 int result1 = prepare.executeUpdate();
 						assert result1 == 1 ;
-		}
-		}}
+						}
+				}
+			}
 		catch (SQLException e) {
 			e.getMessage();
 		}
-
 	}
-	
-	
-	
-	
-	}
+}

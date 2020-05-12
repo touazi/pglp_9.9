@@ -69,17 +69,19 @@ public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
 			if(!res.next()) { throw new FormeDoncExistException(""
 					+ "Le rectangle que vous voulez modifier"
 					+ " n'Ã©xiste pas :( !");}
-			else {  
+			else { 
+				
 			PreparedStatement prepare = connect.prepareStatement(
-					"UPDATE rectangle SET topLeft_x = ?, "
-					+ "topLeft_y = ?, "
+					"UPDATE rectangle SET topLeft_x = ? , "
+					+ "topLeft_y = ? , "
 					+ "sideTop = ? , "
-					+ "sideLeft = ? , "
+					+ "sideLeft = ?  "
 					+ "WHERE NameForme = ?");
+			
 			prepare.setInt(1, obj.getCoordonnee().getX());
 			prepare.setInt(2, obj.getCoordonnee().getY());
-			prepare.setInt(4, obj.getsideLeft());
 			prepare.setInt(3, obj.getsideTop());
+			prepare.setInt(4, obj.getsideLeft());
 			prepare.setString(5, obj.getNameForme());
 			int result = prepare.executeUpdate();
 			assert result == 1;}
