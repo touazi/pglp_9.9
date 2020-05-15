@@ -50,13 +50,13 @@ public class CommandDeCreation implements Command {
 	        	//System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmm");
 	            DAO<Cercle> dao = factory.getCercleDAO();
 	            f = dao.create((Cercle) forme);
-	        } else if (forme.getClass() == Carre.class) {
+	        } else if (forme instanceof Carre) {
 	        	DAO<Carre> dao = factory.getCarreDAO();
 	            f = dao.create((Carre) forme);
-	        } else if (forme.getClass() == Rectangle.class) {
+	        } else if (forme instanceof Rectangle) {
 	        	DAO<Rectangle> dao = factory.getRectangleDAO();
 	            f = dao.create((Rectangle) forme);
-	        } else if (forme.getClass() == Triangle.class) {
+	        } else if (forme instanceof Triangle) {
 	        	DAO<Triangle> dao = factory.getTriangleDAO();
 	            f = dao.create((Triangle) forme);
 	        } else {
@@ -64,13 +64,7 @@ public class CommandDeCreation implements Command {
 	            f = dao.create((GroupeForme) forme);
 	        }
 	        factory.disconnect();;
-	        if (f != null) {
-	            System.out.println("Ajout de la forme "
-	                    + forme.getNameForme() + " réussi.");
-	        } else {
-	            System.out.println("Une forme existe déjà à ce nom : "
-	                    + forme.getNameForme());
-	        }
+	     
 	    }
 
 }
