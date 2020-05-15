@@ -1,4 +1,4 @@
-package lyli.dessin;
+package lyli.dessin.DAO;
 
 import lyli.dessin.exeption.FormeDoncExistException;
 import lyli.dessin.exeption.FormeExisteDeja;
@@ -17,8 +17,9 @@ public interface DAO<T> {
 	*@return
 	*un objet de type T 
  * @throws FormeExisteDeja 
+ * @throws FormeDoncExistException 
 	*/
-	T create(T obj) throws FormeExisteDeja;
+	T create(T obj) throws FormeExisteDeja, FormeDoncExistException;
 	/**
 	*methode update.
 	*@param id

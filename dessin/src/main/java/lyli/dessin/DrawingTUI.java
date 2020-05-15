@@ -7,31 +7,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import lyli.dessin.DAO.DAO;
+import lyli.dessin.DAO.DaoFactory;
+import lyli.dessin.command.Command;
+import lyli.dessin.command.CommandDeCreation;
+import lyli.dessin.command.CommandDeplacer;
+import lyli.dessin.command.Commandexit;
 import lyli.dessin.exeption.FormeDoncExistException;
 
 public class DrawingTUI {
 		/**
-	     * interprÃ¨te la commande de crÃ©ation de forme.
-	     * @param cmd2 la commande
-	     * @return la forme gÃ©nÃ©rÃ©e
-	     * @throws FormeDoncExistException 
-	     * @throws SQLException 
+	     * La Fonction create.
+	     * @param command la commande
+	     * @return la forme generer
+	     * @throws FormeDoncExistException  
+		 * @throws SQLException 
 	     */
-	public Forme create(final String command) throws FormeDoncExistException {
+	public Forme create(String[] Tokens, String typeForme, String name) throws FormeDoncExistException, SQLException {
 	    	 Forme f = null;
-	    	  String[] SeparEgal = null , Tokens = null;
-	    	  SeparEgal = command.split("=");
-	    	  SeparEgal[1] = SeparEgal[1].replace(" ", "");
-		         if (SeparEgal[1].contains("Cercle") || SeparEgal[1].contains("cercle") ) {
-		        	 if(SeparEgal[1].contains("Cercle")) {
-		        	  Tokens = SeparEgal[1].split("Cercle");
-		             }else {Tokens = SeparEgal[1].split("cercle");}    
+		         if (typeForme.equalsIgnoreCase("cer")) {    
 		      	     if ( (Tokens[1].startsWith("(") && Tokens[1].endsWith(")"))) {
 						 Tokens[1] = Tokens[1].substring(1, Tokens[1].length() - 1);
 						 Tokens = Tokens[1].split(",|\\(|\\)");
 							 if (Tokens.length == 5) {
 								 try {
-									 return new Cercle(SeparEgal[0].trim(),  
+									 return new Cercle(name,  
 											 new Coordonnee(Integer.parseInt(Tokens[1]) , 
 													 Integer.parseInt(Tokens[2])),
 											 Integer.parseInt(Tokens[4]));
@@ -48,16 +48,13 @@ public class DrawingTUI {
 						} else
 							System.err.println("parenteses manquantes");
 		            
-	            } else if (SeparEgal[1].contains("Carre") || SeparEgal[1].contains("carre")) {
-			        	 if(SeparEgal[1].contains("Carre")) {
-			        	  Tokens = SeparEgal[1].split("Carre");
-			             }else {Tokens = SeparEgal[1].split("carre");}    
+	            } else if (typeForme.equalsIgnoreCase("car")){   
 			      	     if ( (Tokens[1].startsWith("(") && Tokens[1].endsWith(")"))) {
 							 Tokens[1] = Tokens[1].substring(1, Tokens[1].length() - 1);
 							 Tokens = Tokens[1].split(",|\\(|\\)");
 								 if (Tokens.length == 5) {
 									 try {
-										 return new Carre(SeparEgal[0].trim(),  
+										 return new Carre(name,  
 												 new Coordonnee(Integer.parseInt(Tokens[1]) , 
 														 Integer.parseInt(Tokens[2])),
 												 Integer.parseInt(Tokens[4]));
@@ -75,20 +72,13 @@ public class DrawingTUI {
 							} else
 								System.err.println("parenteses manquantes");
 			            
-	            } else if  (SeparEgal[1].contains("Rectangle") || 
-	                    	SeparEgal[1].contains("rectangle") ||
-	                    	SeparEgal[1].contains("RECTANGLE") ) {
-	                   	 if(SeparEgal[1].contains("Rectangle")) {
-	                   	  Tokens = SeparEgal[1].split("Rectangle");
-	                     }else if (SeparEgal[1].contains("rectangle")) {
-	                    	 Tokens = SeparEgal[1].split("rectangle");
-	                     }else { Tokens = SeparEgal[1].split("RECTANGLE"); }
+	            } else if(typeForme.equalsIgnoreCase("rec")) {
 	                 	     if ( (Tokens[1].startsWith("(") && Tokens[1].endsWith(")"))) {
 	            				 Tokens[1] = Tokens[1].substring(1, Tokens[1].length() - 1);
 	            				 Tokens = Tokens[1].split(",|\\(|\\)");
 	            					 if (Tokens.length == 6) {
 	            						 try {
-	            							 return new Rectangle(SeparEgal[0].trim(),  
+	            							 return new Rectangle(name,  
 	            									 new Coordonnee(Integer.parseInt(Tokens[1]) , 
 	            											 Integer.parseInt(Tokens[2])),
 	            									 Integer.parseInt(Tokens[4]),
@@ -106,20 +96,13 @@ public class DrawingTUI {
 	            				} else
 	            					System.err.println("parenteses manquantes");
 	                
-	            } else if  (SeparEgal[1].contains("Triangle") || 
-	                    	SeparEgal[1].contains("TRIANGLE") ||
-	                    	SeparEgal[1].contains("triangle") ) {
-	                   	 if(SeparEgal[1].contains("Triangle")) {
-	                   	  Tokens = SeparEgal[1].split("Triangle");
-	                     }else if (SeparEgal[1].contains("triangle")) {
-	                    	 Tokens = SeparEgal[1].split("triangle");
-	                     }else { Tokens = SeparEgal[1].split("TRIANGLE");   }
+	            } else  if (typeForme.equalsIgnoreCase("tri")) {
 	                 	     if ( (Tokens[1].startsWith("(") && Tokens[1].endsWith(")"))) {
 	            				 Tokens[1] = Tokens[1].substring(1, Tokens[1].length() - 1);
 	            				 Tokens = Tokens[1].split(",|\\(|\\)");
 	            					 if (Tokens.length == 11) {
 	            						 try {
-	            							 return  new Triangle(SeparEgal[0].trim(),  
+	            							 return  new Triangle(name,  
 	            									 new Coordonnee(Integer.parseInt(Tokens[1]) , 
 	            											Integer.parseInt(Tokens[2])),
 	            									 new Coordonnee(Integer.parseInt(Tokens[5]) , 
@@ -139,17 +122,10 @@ public class DrawingTUI {
 	            				} else
 	            					System.err.println("parenteses manquantes");
 	                
-	            } else if (SeparEgal[1].contains("Groupe") ||
-	            		SeparEgal[1].contains("groupe") ||
-	            		SeparEgal[1].contains("GROUPE")) {
-                  	 if(SeparEgal[1].contains("Groupe")) {
-	                   	  Tokens = SeparEgal[1].split("Groupe");
-	                     }else if (SeparEgal[1].contains("groupe")) {
-	                    	 Tokens = SeparEgal[1].split("groupe");
-	                     }else { Tokens = SeparEgal[1].split("GROUPE"); }
+	            } else if (typeForme.equalsIgnoreCase("gro")) {
 	          	  ArrayList<Forme> formes = new ArrayList<Forme>();
 	               if((Tokens[1].startsWith("(") && Tokens[1].endsWith(")")))  {
-	              	 GroupeForme Groupe = new GroupeForme(SeparEgal[0].trim());
+	              	 GroupeForme Groupe = new GroupeForme(name);
 	          	        for (String s : Tokens[1].substring(1, Tokens[1].length() - 1).split(",")) {
 	                      DaoFactory factory = new DaoFactory();
 	          	        Forme forme = null;
@@ -205,6 +181,78 @@ public class DrawingTUI {
 	    }
 
 
+	public Forme move(final String[]  Token) {
+
+        if (!Token[0].equals("")
+                || !(Token[1].startsWith("(") && Token[1].endsWith(")"))) {
+            System.err.println("Commande invalide, parenthèses manquantes");
+        } else {
+        	Token[1] = Token[1].substring(1, Token[1].length() - 1);
+        	String [] Tokens = Token[1].split(",|\\(|\\)");;
+            if (Tokens.length != 4) {
+                System.err.println("Commande invalide, "
+                        + Tokens.length + "/" + 4 + " arguments");
+            } else {
+                try {
+                    System.out.println(Tokens[3]);
+                  //  deplacement = new Coordonnee( , );
+                    Forme f = null;//this.getForme(variableName);
+                    
+	                      DaoFactory factory = new DaoFactory();
+	          	        Forme forme = null;
+	          	        if (f == null) {
+	          	        	 DAO<Carre> daoCa = factory.getCarreDAO();
+	          	        	 forme = daoCa.read(Tokens[0]);
+	          	            System.out.println("carre");
+	          	            if (forme != null) {
+	          	            	f=forme;
+	          	            	}
+
+	          	            DAO<Rectangle> daoR = factory.getRectangleDAO();
+	          	            forme = daoR.read(Tokens[0]);
+	          	            System.out.println("rectangle");
+	          	            if (forme != null) {
+	          	            	f=forme;
+	          	            	}
+	          	            DAO<Triangle> daoT = factory.getTriangleDAO();
+	          	        	forme = daoT.read(Tokens[0]);
+	          	        	 System.out.println("triangle");
+	          	        	   if (forme != null) {
+	          	        		 f=forme;
+	          		            	}
+	          	        	 DAO<GroupeForme> daoG = factory.getGroupeDAO();
+	          	        	 forme = daoG.read(Tokens[0]);
+	          		        	 System.out.println("groupe");
+	          		        	   if (forme != null) {
+	          			            	
+	          		        		 f=forme;
+	          			            	}
+	          	            DAO<Cercle> daoCe = factory.getCercleDAO();
+	          	            forme = daoCe.read(Tokens[0]);
+	          	            if (forme != null) {
+	          	            	
+	          	            	f=forme;
+	          	            	}
+	          	            }    if (f == null)  System.err.println("La forme:  "+ Tokens[0] + " n'existe pas "); 
+	          	       
+                    if (f != null) {
+                      System.out.println("ayouhhhhhhhhhhhhhhhhhhhhhhh");
+                    f.affiche();
+                      f.move(Tokens[0], Integer.parseInt(Tokens[2]), Integer.parseInt(Tokens[3]));
+                    	//Command cfff =  new CommandDeplacer(f);
+                    //	cfff.execute();
+                      f.affiche();
+                      return f;
+                    }
+                } catch (Exception e) {
+                    System.err.println("Commande invalide");
+                    e.printStackTrace();
+                }
+            }
+        }
+		return null;
+		
+	}
 
 	    /**
 	     * interprÃ¨te une commande.
@@ -214,27 +262,95 @@ public class DrawingTUI {
 	     * @throws FormeExisteDeja 
 	     * @throws SQLException 
 	     */
-	    public Command nextCommand(final String cmd) throws FormeDoncExistException, SQLException {
-	       
-	    	if (cmd.contains("=")) {
-	            Forme f = this.create(cmd);
+	    public Command nextCommand(final String command) throws FormeDoncExistException, SQLException {
+	    	String[] Token = null;
+	    	if (command.indexOf("=") > -1) {
+	    		 Forme f = null;
+		    	  String[] SeparEgal = null , Tokens = null;
+		    	  SeparEgal = command.split("=");
+		    	  SeparEgal[1] = SeparEgal[1].replace(" ", "");
+		    	  
+			         if (SeparEgal[1].contains("Cercle") || SeparEgal[1].contains("cercle") ) {
+			        	 if(SeparEgal[1].contains("Cercle")) {
+			        	  Tokens = SeparEgal[1].split("Cercle");
+			             }else {Tokens = SeparEgal[1].split("cercle");}
+			        	 f = this.create(Tokens, "cer" ,SeparEgal[0].trim());
+			         }
+			         else if  (SeparEgal[1].contains("Triangle") || 
+		                    	SeparEgal[1].contains("TRIANGLE") ||
+		                    	SeparEgal[1].contains("triangle") ) {
+		                   	 if(SeparEgal[1].contains("Triangle")) {
+		                   	  Tokens = SeparEgal[1].split("Triangle");
+		                     }else if (SeparEgal[1].contains("triangle")) {
+		                    	 Tokens = SeparEgal[1].split("triangle");
+		                     }else { Tokens = SeparEgal[1].split("TRIANGLE");   }
+		                   	f = this.create(Tokens, "tri" ,SeparEgal[0].trim());
+		                   	f.affiche();
+			         }
+			         else if  (SeparEgal[1].contains("Rectangle") || 
+		                    	SeparEgal[1].contains("rectangle") ||
+		                    	SeparEgal[1].contains("RECTANGLE") ) {
+		                   	 if(SeparEgal[1].contains("Rectangle")) {
+		                   	  Tokens = SeparEgal[1].split("Rectangle");
+		                     }else if (SeparEgal[1].contains("rectangle")) {
+		                    	 Tokens = SeparEgal[1].split("rectangle");
+		                     }else { Tokens = SeparEgal[1].split("RECTANGLE"); }
+		                  	f = this.create(Tokens, "rec" ,SeparEgal[0].trim());
+			         }
+			         else if (SeparEgal[1].contains("Carre") || 
+		                    	SeparEgal[1].contains("carre") ||
+		                    	SeparEgal[1].contains("CARRE") ) {
+		                   	 if(SeparEgal[1].contains("Carre")) {
+		                   	  Tokens = SeparEgal[1].split("Carre");
+		                     }else if (SeparEgal[1].contains("carre")) {
+		                    	 Tokens = SeparEgal[1].split("carre");
+		                     }else { Tokens = SeparEgal[1].split("CARRE"); }
+			        	 f = this.create(Tokens, "car" ,SeparEgal[0].trim());
+			         }
+			         else if (SeparEgal[1].contains("Groupe") || 
+		                    	SeparEgal[1].contains("groupe") ||
+		                    	SeparEgal[1].contains("GROUPE") ) {
+		                   	 if(SeparEgal[1].contains("Groupe")) {
+		                   	  Tokens = SeparEgal[1].split("Groupe");
+		                     }else if (SeparEgal[1].contains("groupe")) {
+		                    	 Tokens = SeparEgal[1].split("groupe");
+		                     }else { Tokens = SeparEgal[1].split("GROUPE"); }
+			        	 f = this.create(Tokens, "gro" ,SeparEgal[0].trim());
+			         }
+	           
 	            if (f != null) {
-	              
-	               f.affiche();
-	               Command lylia = new CommandDeCreation ();
-	               lylia.execute();
-	               this.afficheDessin();
+	               Command lylia = new CommandDeCreation (f);
+	              // lylia.execute();
+	              // this.afficheDessin();
 	            	 return lylia;
+	            	 }
 	            }
+	    	else if ((command.indexOf("move") > -1) || 
+	        		(command.indexOf("Move") > -1) || 
+	        		(command.indexOf("MOVE") > -1)) {
+	    		String  cmd = command.replace(" ", "");
+	    		if((command.indexOf("Move") > -1)) {Token = cmd.split("Move");}
+	    		else if ((command.indexOf("move") > -1)) {Token = cmd.split("move");}
+	    		else {Token = cmd.split("MOVE");}
+	    			
+	    		Forme f= null;
+	    		f=this.move(Token);
+	    		 if (f != null) {
+		               Command lylia = new CommandDeplacer (f);
+		              // lylia.execute();
+		              // this.afficheDessin();
+		            	 return lylia;
+		            	 }
+	        }
 	      
-	        } else if (!cmd.equalsIgnoreCase("exit")) {
+	         else if (!command.equalsIgnoreCase("exit")) {
 	        	return new Commandexit ();
 	        }
 	        return null;
 	    }
 	
 	    /**
-	     * affiche toutes les formes du dessin (sauf les groupes).
+	     * affiche toutes les formes du dessin .
 	     * @throws SQLException 
 	     * @throws FormeDoncExistException 
 	     */

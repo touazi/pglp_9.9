@@ -2,9 +2,14 @@ package lyli.dessin;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import lyli.dessin.DAO.DAO;
+import lyli.dessin.DAO.DaoFactory;
 import lyli.dessin.exeption.FormeDoncExistException;
 import lyli.dessin.exeption.FormeExisteDeja;
 
@@ -15,48 +20,52 @@ public class TestDAO {
     Cercle cercle;
     Rectangle rectangle;
     GroupeForme  g;
-    JdbsDaoCarreDerby ppp;
-    JdbsDaoCercleDerby pppcercle;
-    JdbsDaoTriangleDerby ppptriangle;
-    JdbsDaoRectangleDerby Rectangleppp;
-    JdbsDaoGroupeDerby groupeder;
+    DAO<Carre> ppp;
+    DAO<Cercle> pppcercle;
+    DAO<Triangle> ppptriangle;
+    DAO<Rectangle> Rectangleppp;
+    DAO<GroupeForme> groupeder;
 	private Forme creategroupe;
+	DaoFactory factory ;
 	@Before()
-	public void setUp() {
+	public void setUp() throws SQLException {
 	     triangle = new Triangle( "lyliatriangle",new Coordonnee(1,1), new Coordonnee(0,0), new Coordonnee(0,2) );
          carre = new Carre ("lyliacarre",new Coordonnee(1,4), 2);
          cercle = new Cercle ("lyliacercle",new Coordonnee(4,5), 5);
          rectangle = new Rectangle ("lyliarectangle",new Coordonnee(1,4),5,2);
          g=new GroupeForme("premierGroupe");
-          ppp=new JdbsDaoCarreDerby();
-          pppcercle =new JdbsDaoCercleDerby();
-          ppptriangle=new JdbsDaoTriangleDerby();
-          Rectangleppp=new JdbsDaoRectangleDerby();
-          groupeder = new JdbsDaoGroupeDerby();
-    	
+         factory = new DaoFactory();
+         pppcercle = factory.getCercleDAO();
+         ppp = factory.getCarreDAO();
+         Rectangleppp = factory.getRectangleDAO();
+         ppptriangle = factory.getTriangleDAO();
+         groupeder = factory.getGroupeDAO();
+          //ppp=new JdbsDaoCarreDerby();
+         
+          
     	g= new GroupeForme("fff");
 	}
 
 	@Test
-	public void testCreateCarre() throws FormeExisteDeja {
+	public void testCreateCarre() throws FormeExisteDeja, FormeDoncExistException {
 		Carre pCreate=ppp.create(carre);
 		assertEquals(pCreate.getNameForme(), carre.getNameForme());
 	}
 	@Test
-	public void testCreateRectangle() throws FormeExisteDeja {
+	public void testCreateRectangle() throws FormeExisteDeja, FormeDoncExistException {
 		Rectangle pCreateRectangle= Rectangleppp.create(rectangle);
 		assertEquals(pCreateRectangle.getNameForme(), rectangle.getNameForme());
     
 	}
 	@Test
-	public void testCreateTriangle() throws FormeExisteDeja {
+	public void testCreateTriangle() throws FormeExisteDeja, FormeDoncExistException {
 		 Triangle pCreateTriangle=ppptriangle.create(triangle);
 		 assertEquals(pCreateTriangle.getNameForme(), triangle.getNameForme());
 	    	
 	}
 	
 	@Test
-	public void testCreateGroupe() throws FormeExisteDeja {
+	public void testCreateGroupe() throws FormeExisteDeja, FormeDoncExistException {
 		 g.ajouterForme(rectangle);
 		 	g.ajouterForme(cercle);
 				GroupeForme creategroupe = groupeder.create(g);
@@ -65,7 +74,7 @@ public class TestDAO {
 	}
 	
 	@Test
-	public void testreadcercle() throws FormeExisteDeja {
+	public void testreadcercle() throws FormeExisteDeja, FormeDoncExistException {
 		Cercle pCreateCercle =pppcercle.create(cercle);
 		assertEquals(pCreateCercle.getNameForme(), cercle.getNameForme());
 	}
@@ -114,5 +123,9 @@ public class TestDAO {
 		assertEquals(c.getCoordonnee().getX(), cercle.getCoordonnee().getX());
 		assertEquals(c.getCoordonnee().getY(), cercle.getCoordonnee().getY());
 		assertEquals(c.getNameForme(), cercle.getNameForme());
+	}
+	@After
+	public void tearDown() throws Exception {
+		factory.disconnect();
 	}
 }

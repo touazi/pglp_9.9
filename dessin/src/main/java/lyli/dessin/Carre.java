@@ -30,14 +30,14 @@ public class Carre extends Forme implements java.io.Serializable {
 	 * @return
 	 * la position du point topleft.
 	 * */
-	Coordonnee getCoordonnee() {
+	public Coordonnee getCoordonnee() {
 		return this.topLeft;
 	}
 	/**La methode getside.
 	 * @return
 	 * la taille d'un coté du carre.
 	 * */
-	int getside() {
+	public int getside() {
 		return this.side;
 	}
 	/**Constructeur de la class Carre.

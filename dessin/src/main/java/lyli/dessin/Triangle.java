@@ -68,21 +68,21 @@ public class Triangle extends Forme implements java.io.Serializable {
 	 * @return
 	 * la position du point1.
 	 * */
-	Coordonnee getCoordonnee1() {
+	public Coordonnee getCoordonnee1() {
 		return this.point1;
 	}
 	/**La methode getCoordonnee.
 	 * @return
 	 * la position du point2.
 	 * */
-	Coordonnee getCoordonnee2() {
+	public Coordonnee getCoordonnee2() {
 		return this.point2;
 	}
 	/**La methode getCoordonnee.
 	 * @return
 	 * la position du point3.
 	 * */
-	Coordonnee getCoordonnee3() {
+	public Coordonnee getCoordonnee3() {
 		return this.point3;
 	}
 }

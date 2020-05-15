@@ -60,14 +60,14 @@ public class Cercle extends Forme implements java.io.Serializable {
 	 * @return
 	 * la position du point centre.
 	 * */
-	Coordonnee getCoordonnee() {
+	public Coordonnee getCoordonnee() {
 		return this.centre;
 	}
 	/**La methode getrayon.
 	 * @return
 	 * le rayon du cerle.
 	 * */
-	int getrayon() {
+	public int getrayon() {
 		return this.rayon;
 	}	
 }

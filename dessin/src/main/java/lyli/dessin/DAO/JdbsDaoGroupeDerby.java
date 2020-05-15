@@ -1,17 +1,28 @@
-package lyli.dessin;
+package lyli.dessin.DAO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import lyli.dessin.Carre;
+import lyli.dessin.Cercle;
+import lyli.dessin.Coordonnee;
+import lyli.dessin.Forme;
+import lyli.dessin.GroupeForme;
+import lyli.dessin.Rectangle;
+import lyli.dessin.Triangle;
 import lyli.dessin.exeption.FormeDoncExistException;
 import lyli.dessin.exeption.FormeExisteDeja;
 
 public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
-	private static String dburl = CeartionBDDREBY.dburl;
+	Connection connect = null;
+	public JdbsDaoGroupeDerby(Connection connect ) 
+	{
+	this.connect = connect ;
+	}
 	@Override
 	public GroupeForme create(GroupeForme obj) {
-		try (Connection connect = DriverManager.getConnection(dburl)) {
+		try {
 			PreparedStatement prepare = connect.prepareStatement(
 					"INSERT INTO groupe (id)" +
 					"VALUES (?)");
@@ -38,8 +49,8 @@ public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 	
 	@Override
 	public GroupeForme read(String id) throws FormeDoncExistException {
-		GroupeForme groupe = new GroupeForme(id);
-		try (Connection connect = DriverManager.getConnection(dburl)) {
+		GroupeForme groupe = null;
+		try  {
 			PreparedStatement prepares = connect.prepareStatement(
 					"SELECT * FROM appartenir WHERE id = ?");
 			prepares.setString(1,id);
@@ -50,6 +61,7 @@ public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 			ArrayList<Triangle> Triangles = new ArrayList<Triangle>();
 			while (result.next()){
 					try {
+						groupe = new GroupeForme(id);
 						PreparedStatement prepare = connect.prepareStatement(
 						"SELECT * FROM cercle WHERE NameForme = ?  ");
 						prepare.setString(1, result.getString("nom"));
@@ -124,7 +136,7 @@ public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 	@Override
 	public GroupeForme update(GroupeForme obj) throws FormeDoncExistException, FormeExisteDeja {
 		GroupeForme groupe = new GroupeForme(obj.getNameForme());
-		try (Connection connect = DriverManager.getConnection(dburl)) {
+		try  {
 			PreparedStatement prepareFind = connect.prepareStatement(
 					"SELECT * FROM groupe WHERE id = ?  ");
 			prepareFind.setString(1, obj.getNameForme());
@@ -161,7 +173,7 @@ public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 	public void delete(GroupeForme obj) throws FormeDoncExistException {
 		// TODO Auto-generated method stub
 		read(obj.getNameForme());
-		try (Connection connect = DriverManager.getConnection(dburl)) {
+		try {
 			PreparedStatement prepareFind = connect.prepareStatement(
 					"SELECT * FROM groupe WHERE id = ?  ");
 			prepareFind.setString(1, obj.getNameForme());

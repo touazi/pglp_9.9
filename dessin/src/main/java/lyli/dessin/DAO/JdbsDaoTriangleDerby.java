@@ -1,19 +1,26 @@
-package lyli.dessin;
+package lyli.dessin.DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import lyli.dessin.Coordonnee;
+import lyli.dessin.Triangle;
 import lyli.dessin.exeption.FormeDoncExistException;
 import lyli.dessin.exeption.FormeExisteDeja;
 
 public class JdbsDaoTriangleDerby implements DAO<Triangle> {
-	private static String dburl = CeartionBDDREBY.dburl;
+
+	Connection connect = null;
+	public JdbsDaoTriangleDerby(Connection connect) {
+		this.connect = connect ;
+	}
+
 	@Override
-	public Triangle create(Triangle obj) throws FormeExisteDeja {
-		try (Connection connect = DriverManager.getConnection(dburl)) {
+	public Triangle create(Triangle obj) throws FormeExisteDeja, FormeDoncExistException {
+		this.delete(obj);
+		try {
 			PreparedStatement prepare = connect.prepareStatement(
 					"INSERT  INTO Triangle (NameForme, point1_x, point1_y, "
 					+ "point2_x, point2_y, point3_x, point3_y)" 
@@ -40,7 +47,7 @@ public class JdbsDaoTriangleDerby implements DAO<Triangle> {
 	public Triangle read(String id) throws FormeDoncExistException {
 		// TODO Auto-generated method stub
 		Triangle triangle = null;
-		try (Connection connect = DriverManager.getConnection(dburl)) {
+		try {
 			PreparedStatement prepare = connect.prepareStatement(
 					"SELECT * FROM triangle WHERE NameForme = ?  ");
 			prepare.setString(1, id);
@@ -54,8 +61,9 @@ public class JdbsDaoTriangleDerby implements DAO<Triangle> {
 				result.close();
 				}
 			else { 
-		        throw new FormeDoncExistException("Le triangle que vous chercher n'Ã©xiste pas :( !");}
-		}
+		        //throw new FormeDoncExistException("Le triangle que vous chercher n'Ã©xiste pas :( !");}
+				return null;}
+			}
 		catch (SQLException e) {
 			e.getMessage();
 		}
@@ -64,7 +72,7 @@ public class JdbsDaoTriangleDerby implements DAO<Triangle> {
 
 	@Override
 	public Triangle update(Triangle obj) throws FormeDoncExistException {
-		try (Connection connect = DriverManager.getConnection(dburl)) {
+		try {
 			PreparedStatement prepareFind = connect.prepareStatement(
 					"SELECT * FROM triangle WHERE NameForme = ?  ");
 			prepareFind.setString(1, obj.getNameForme());
@@ -101,15 +109,15 @@ public class JdbsDaoTriangleDerby implements DAO<Triangle> {
 	public void delete(Triangle obj) throws FormeDoncExistException {
 		// TODO Auto-generated method stub
 		read(obj.getNameForme());
-		try (Connection connect = DriverManager.getConnection(dburl)) {
+		try  {
 			PreparedStatement prepareFind = connect.prepareStatement(
 					"SELECT * FROM triangle WHERE NameForme = ?  ");
 			prepareFind.setString(1, obj.getNameForme());
 			ResultSet res = prepareFind.executeQuery();
-			if(!res.next()) { throw new FormeDoncExistException(""
+			/*if(!res.next()) { throw new FormeDoncExistException(""
 					+ "Le triangle, donc le nom " + obj.getNameForme() + ",  que vous voulez suprimer"
-					+ " n'Ã©xiste pas :( !");}
-			else {
+					+ " n'Ã©xiste pas :( !");}*/
+			if (res.next()) {
 				PreparedStatement prepare = connect.prepareStatement(
 						"DELETE FROM triangle "
 						+ "WHERE NameForme = ?");
