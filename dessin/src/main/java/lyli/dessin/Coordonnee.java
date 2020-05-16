@@ -19,8 +19,8 @@ public class Coordonnee {
 
     /**
      * constructeur de la class Coordonnee.
-     * @param x
-     * @param y
+     * @param x la possition dans l'ax des x
+     * @param y la possition dans l'ax des Y
      */
 	public Coordonnee(int x,int y) {
 		this.x = x;
@@ -29,6 +29,7 @@ public class Coordonnee {
 	
 	/**
 	 * méthode copy.
+	 * @return ue copie de la coordonnee
 	 *
 	 * */
 	public Coordonnee copy () {
@@ -37,19 +38,22 @@ public class Coordonnee {
 	
 	/**
 	 * méthode equals.
-	 * @param coordonnee
+	 * @param coordonnee a tester l'égalité
+	 * @return vrai ou faux
      **/
 	public boolean equals (Coordonnee coordonnee) {
 	        return this.x == coordonnee.x && this.y == coordonnee.y;
 	    }
 	 /**
      * methode qui modifie la coordonée x.
+     *@param x à modifier
      *  */
 	  public void setX(int x) {
 			this.x = x;
 		}
 		 /**
 	     * methode qui modifie la coordonée y.
+	     * @param y a modifier
 	     *  */
 		public void setY(int y) {
 			this.y = y;

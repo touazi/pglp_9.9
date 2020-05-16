@@ -92,11 +92,10 @@ public class DrawingApp {
     }
     /**
      * la méthode run qui permet d'executer les commandes de l'utilisateur.
-     * @throws FormeDoncExistException 
-     * @throws SQLException 
-     * @throws FormeExisteDeja 
+     * @throws FormeDoncExistException lever les Exceptions forme exite pas
+     * @throws SQLException lever les Exceptions SQL
      */
-    public void run() throws FormeDoncExistException, SQLException, FormeExisteDeja {
+    public void run() throws FormeDoncExistException, SQLException {
     	this.menu();	
     	String cmd = saisie.nextLine();
     	cmd=cmd.replace(" ", "");
@@ -123,9 +122,8 @@ public class DrawingApp {
     /**
      * le main du programme.
      * @param args arguments
-     * @throws TableExisteDeja
      */
-	public static void main(String[] args) throws TableExisteDeja {
+	public static void main(String[] args)  {
 		// TODO Auto-generated method stub
         System.out.println("veuillez saisir le nom de votre fichier ");
         Scanner s = new Scanner(System.in);

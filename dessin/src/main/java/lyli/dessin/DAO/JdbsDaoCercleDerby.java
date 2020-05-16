@@ -7,9 +7,6 @@ import java.sql.SQLException;
 
 import lyli.dessin.Cercle;
 import lyli.dessin.Coordonnee;
-import lyli.dessin.exeption.FormeDoncExistException;
-import lyli.dessin.exeption.FormeExisteDeja;
-
 public class JdbsDaoCercleDerby implements DAO<Cercle> {
 	Connection connect = null;
 	public JdbsDaoCercleDerby(Connection connect ) 
@@ -18,25 +15,19 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 	}
 
 	@Override
-	public Cercle create(Cercle obj) throws FormeExisteDeja, FormeDoncExistException {
+	public Cercle create(Cercle obj) {
 		this.delete(obj);
 		PreparedStatement prepare = null;
-		
 		try  {
-			
-			
 				 prepare = connect.prepareStatement(
 						"INSERT  INTO Cercle (NameForme, centre_x, centre_y, rayon)" +
 						"VALUES (?, ?, ?, ?)");
-				// System.out.println("siham");
 				prepare.setString(1, obj.getNameForme());
 				prepare.setInt(2, obj.getCoordonnee().getX());
 				prepare.setInt(3, obj.getCoordonnee().getY());
 				prepare.setInt(4, obj.getrayon());
 				int result = prepare.executeUpdate();
 				assert result == 1;
-				//prepare.close();
-				//connect.close();
 			}
 			catch (SQLException e) {
 				e.getMessage();
@@ -48,36 +39,24 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 
 
 	@Override
-	public Cercle read(String id) throws FormeDoncExistException {
-		
+	public Cercle read(String id) {
 		// TODO Auto-generated method stub
 		Cercle cercle = null;
-		//Connection connect = null;
 		PreparedStatement prepare = null ;
 		ResultSet result = null ;
 		try {
-		//	System.out.println("avant");
-		
-			
 			prepare = connect.prepareStatement(
 					"SELECT * FROM cercle WHERE NameForme = ?  ");
-			//System.out.println("iciiiiiiiii");
 			prepare.setString(1, id);
 			result = prepare.executeQuery();
 			if(result.next()) {
 				cercle =   new Cercle (result.getString("NameForme"),
 							new Coordonnee(result.getInt("centre_x"), result.getInt("centre_y")), 
 							result.getInt("rayon"));
-				/*System.out.println("ppppppppppppppppppppppppppppppppp");
-			
-				cercle.affiche();
-				System.out.println("ppppppppppppppppppppppppppppppppp");*/
-					}
+				}
 			else { 
-		     //   throw new FormeDoncExistException("Le Cercle que vous chercher n'Ã©xiste pas :( !");
-		        return null;}
-		
-	}
+		       return null;}
+			}
 		catch (SQLException e) {
 			e.getMessage();
 		}
@@ -85,17 +64,13 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 		}
 
 	@Override
-	public Cercle update(Cercle obj) throws FormeDoncExistException {
+	public Cercle update(Cercle obj) {
 		try {
 			PreparedStatement prepareFind = connect.prepareStatement(
 					"SELECT * FROM cercle WHERE NameForme = ?  ");
 			prepareFind.setString(1, obj.getNameForme());
 			ResultSet res = prepareFind.executeQuery();
-			
-			if(!res.next()) { throw new FormeDoncExistException(""
-					+ "Le cercle que vous voulez modifier"
-					+ " n'Ã©xiste pas :( !");}
-			else {  
+			if (res.next()) {  
 			PreparedStatement prepare = connect.prepareStatement(
 					"UPDATE cercle SET centre_x = ?, "
 					+ "centre_y = ?, "
@@ -108,16 +83,15 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 			int result = prepare.executeUpdate();
 			System.out.println(obj.getCoordonnee().getX());
 			System.out.println(obj.getCoordonnee().getY());
-			assert result == 1;}
-		}
+			assert result == 1; }
+			}
 		catch (SQLException e) {
 			e.getMessage();
 		}
 		return obj;	
 	}
-
 	@Override
-	public void delete(Cercle obj) throws FormeDoncExistException {
+	public void delete(Cercle obj) {
 		// TODO Auto-generated method stub
 		read(obj.getNameForme());
 		try  {
@@ -125,9 +99,6 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 					"SELECT * FROM cercle WHERE NameForme = ?  ");
 			prepareFind.setString(1, obj.getNameForme());
 			ResultSet res = prepareFind.executeQuery();
-		/*	if(!res.next()) { throw new FormeDoncExistException(""
-					+ "Le cercle , donc le nom " + obj.getNameForme() + ", que vous voulez suprimer"
-					+ " n'Ã©xiste pas :( !");}*/
 			if (res.next()) {
 				PreparedStatement prepare = connect.prepareStatement(
 						"DELETE FROM cercle "
@@ -135,10 +106,10 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 				prepare.setString(1, obj.getNameForme());
 				int result = prepare.executeUpdate();
 				assert result == 1;
-		}}
+				}
+			}
 		catch (SQLException e) {
 			e.getMessage();
 		}
 	}
-
 }

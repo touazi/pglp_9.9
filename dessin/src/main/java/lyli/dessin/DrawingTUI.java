@@ -33,11 +33,10 @@ public class DrawingTUI {
 	     * @param Tokens les Tokens de la commande
 	     * @param typeForme le type de la forme à créer
 	     * @param name le nome de la forme
-	     * @return la forme générer
-	     * @throws FormeDoncExistException  
-		 * @throws SQLException 
+	     * @return la forme générer 
+		 * @throws SQLException lever les Exceptions SQL
 	     */
-	public Forme createForme(String[] Tokens, String typeForme, String name) throws FormeDoncExistException, SQLException {
+	public Forme createForme(String[] Tokens, String typeForme, String name) throws  SQLException {
 	    	 if (typeForme.equalsIgnoreCase("cer")) { 
 	    		    if ( (Tokens[1].startsWith("(") && Tokens[1].endsWith(")"))) {
 						 Tokens[1] = Tokens[1].substring(1, Tokens[1].length() - 1);
@@ -148,13 +147,12 @@ public class DrawingTUI {
      * <b>"elle permet de créer une Groupe selon le type de de la chaine"</b>
      * <b>"de caractaire donnée."</b>
      * @param Tokens les Tokens de la commande
-     * @param typeForme le type de la forme à créer
      * @param name le nome de la forme
-     * @return la forme générer
-     * @throws FormeDoncExistException  
-	 * @throws SQLException 
+     * @return la forme générer  
+	 * @throws SQLException lever les Exceptions SQL
+	 * @throws FormeDoncExistException lever les Exceptions de la forme qui n'existe pas
      */
-public Forme createGroupe(String[] Tokens, String name) throws FormeDoncExistException, SQLException {
+public Forme createGroupe(String[] Tokens, String name) throws SQLException, FormeDoncExistException {
 	
     	  ArrayList<Forme> formes = new ArrayList<Forme>();
          if((Tokens[1].startsWith("(") && Tokens[1].endsWith(")")))  {
@@ -214,8 +212,6 @@ return null;
  * <b>"elle permet de deplacer une Groupe ou une forme "</b>
  * @param Token les Tokens de la commande
  * @return la forme deplacer
- * @throws FormeDoncExistException  
- * @throws SQLException 
  */
 public Forme move(final String[]  Token) {
 
@@ -296,8 +292,8 @@ public Forme move(final String[]  Token) {
  * <b>"elle permet de suprimer une Groupe ou une forme "</b>
  * @param Token les Tokens de la commande
  * @return la forme à surpimer
- * @throws FormeDoncExistException  
- * @throws SQLException 
+ * @throws FormeDoncExistException  ever les Exceptions de la forme qui n'existe pas
+ * @throws SQLException ever les Exceptions SQL
  */
     public Forme delete(final String[]  Token) throws SQLException, FormeDoncExistException {
     	String[] Tokens = null ;
@@ -342,9 +338,8 @@ public Forme move(final String[]  Token) {
 	     * en chaine de carractere et les transforme en commande.
 	     * @param command commande de l'utilisateur.
 	     * @return une commande à exectuer ou null s'il n'y en a pas.
-	     * @throws FormeDoncExistException 
-	     * @throws FormeExisteDeja 
-	     * @throws SQLException 
+	     * @throws FormeDoncExistException lever les Exceptions de la forme qui n'existe pas
+	     * @throws SQLException lever les Exceptions SQL
 	     */
 	public Command nextCommand(final String command) throws FormeDoncExistException, SQLException {
 		 
@@ -465,11 +460,10 @@ public Forme move(final String[]  Token) {
 	    /**
 	     * la methode afficheDessin.
 	     * affiche toutes les formes du dessin .
-	     * @throws SQLException 
-	     * @throws FormeDoncExistException 
+	     * @throws SQLException lever les Exceptions SQL
 	     */
 
-	     public void afficheDessin() throws FormeDoncExistException, SQLException {
+	     public void afficheDessin() throws  SQLException {
 	    	  DaoFactory factory = new DaoFactory();
 	    	  this.connect = factory.getConnection();
 	        ArrayList<Forme> formes = new ArrayList<Forme>();

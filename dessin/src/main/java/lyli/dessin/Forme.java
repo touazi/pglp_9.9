@@ -11,7 +11,7 @@ public abstract class Forme {
     private String NameForme;
     /**
      * constructeur pour la class Forme.
-     * @param NomForme
+     * @param NameForme
      * définir le nom de la forme
      */
 	public Forme(String NameForme) {
@@ -19,15 +19,16 @@ public abstract class Forme {
 	}
     /**
      *le nom de la forme.
-     * @return NomForme
-     *  le nom de la forme
+     * @return le nom de la forme
      */
     public String getNameForme() {
         return NameForme;
     }
     /**
      * deplacement d'une forme.
-     * @param coor déplacement de la coordonnee
+     * @param NameForme le nom de la forme
+     * @param x decalage d'ax des x
+     * @param y decalage de l'ax des y
      **/
     public abstract void move(String NameForme, int x, int y);
     /**

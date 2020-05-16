@@ -14,57 +14,53 @@ import lyli.dessin.exeption.FormeExisteDeja;
 
 public class CommandDeplacer implements Command  {   
 	/**
-	     * forme à créer.
+	     * forme à deplacer.
 	     */
 	    private Forme forme;
 	    /**
-	     * constructeur de la classe.
-	     * @param f forme à créer
+	     * constructeur de la classe CommandDeplacer.
+	     * @param f forme à deplacer
 	     */
 	    public CommandDeplacer(final Forme f) {
 	        this.forme = f;
-	      /*  System.out.println("jjjjjjjjjjjjjjjjjj");
-	        f.affiche();
-	        forme.affiche();
-	        System.out.println("jjjjjjjjjjjjjjjjjj");*/
-	    }
-	    public Forme getForme() {
-	    	return this.forme;
-	    }
+	        }
+
 	    /**
-	     * execution de la commande.
-	     * @throws SQLException 
-	     * @throws FormeExisteDeja 
-	     * @throws FormeDoncExistException 
+	     * execution de la commande de deplacement.
+	     * @throws SQLException  lever les Exceptions SQL
 	     */
-	    public void execute() throws SQLException, FormeExisteDeja, FormeDoncExistException {
+	    public void execute() throws SQLException {
 	        Forme f;
-	       // forme.affiche();
 	        DaoFactory factory = new DaoFactory();
 	        if (forme instanceof Cercle) {
 	        	 DAO<Cercle> dao = factory.getCercleDAO();
-	            System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmm");
-	            Cercle  cc = (Cercle) forme;
-	            cc.affiche();
-	            f = dao.update(cc);
-	            f.affiche();
-	            System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmm");
-	            
+	            f = dao.update((Cercle) forme);
+	            factory.disconnect();
 	        } else if (forme instanceof Carre) {
 	        	DAO<Carre> dao = factory.getCarreDAO();
 	            f = dao.update((Carre) forme);
+	            factory.disconnect();
 	        } else if (forme instanceof Rectangle) {
 	        	DAO<Rectangle> dao = factory.getRectangleDAO();
 	            f = dao.update((Rectangle) forme);
+	            factory.disconnect();
 	        } else if (forme instanceof Triangle) {
 	        	DAO<Triangle> dao = factory.getTriangleDAO();
 	            f = dao.update((Triangle) forme);
-	        } else {
+	            factory.disconnect();
+	        } else if(forme instanceof GroupeForme) {
 	        	DAO<GroupeForme> dao = factory.getGroupeDAO();
 	            f = dao.update((GroupeForme) forme);
-	        }
-	        factory.disconnect();
+	            factory.disconnect();
+	        } else factory.disconnect();
+	        
 	     
 	    }
-
+	    /**
+	     * méthode getForme.
+	     * @return  forme deplacer
+	     */
+	    public Forme getForme() {
+	    	return this.forme;
+	    }
 }

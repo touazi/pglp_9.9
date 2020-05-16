@@ -4,12 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import lyli.dessin.Coordonnee;
 import lyli.dessin.Rectangle;
-import lyli.dessin.exeption.FormeDoncExistException;
-import lyli.dessin.exeption.FormeExisteDeja;
-
 public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
 	Connection connect = null;
 	public JdbsDaoRectangleDerby(Connection connect) 
@@ -17,7 +13,7 @@ public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
 	this.connect = connect ;
 	}
 	@Override
-	public Rectangle create(Rectangle obj) throws FormeExisteDeja {
+	public Rectangle create(Rectangle obj) {
 		try {
 			PreparedStatement prepare = connect.prepareStatement(
 					"INSERT  INTO Rectangle (NameForme, topLeft_x, topLeft_y, sideTop, sideLeft)" +
@@ -38,7 +34,7 @@ public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
 	}
 
 	@Override
-	public Rectangle read(String id) throws FormeDoncExistException {
+	public Rectangle read(String id) {
 		// TODO Auto-generated method stub
 		Rectangle rectangle = null;
 		try {
@@ -55,7 +51,6 @@ public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
 				result.close();
 				}
 			else { 
-		      //  throw new FormeDoncExistException("Le Rectangle que vous chercher n'Ã©xiste pas :( !");
 		        return null;    
 			}
 		}
@@ -66,25 +61,19 @@ public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
 		}
 
 	@Override   
-	public Rectangle update(Rectangle obj) throws FormeDoncExistException {
+	public Rectangle update(Rectangle obj) {
 		try {
 			PreparedStatement prepareFind = connect.prepareStatement(
 					"SELECT * FROM rectangle WHERE NameForme = ?  ");
 			prepareFind.setString(1, obj.getNameForme());
 			ResultSet res = prepareFind.executeQuery();
-			
-			if(!res.next()) { throw new FormeDoncExistException(""
-					+ "Le rectangle que vous voulez modifier"
-					+ " n'Ã©xiste pas :( !");}
-			else { 
-				
+			if (res.next()) { 
 			PreparedStatement prepare = connect.prepareStatement(
 					"UPDATE rectangle SET topLeft_x = ? , "
 					+ "topLeft_y = ? , "
 					+ "sideTop = ? , "
 					+ "sideLeft = ?  "
 					+ "WHERE NameForme = ?");
-			
 			prepare.setInt(1, obj.getCoordonnee().getX());
 			prepare.setInt(2, obj.getCoordonnee().getY());
 			prepare.setInt(3, obj.getsideTop());
@@ -100,7 +89,7 @@ public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
 	}
 
 	@Override
-	public void delete(Rectangle obj) throws FormeDoncExistException {
+	public void delete(Rectangle obj) {
 		// TODO Auto-generated method stub
 		read(obj.getNameForme());
 		try {
@@ -108,17 +97,15 @@ public class JdbsDaoRectangleDerby implements DAO<Rectangle>{
 					"SELECT * FROM rectangle WHERE NameForme = ?  ");
 			prepareFind.setString(1, obj.getNameForme());
 			ResultSet res = prepareFind.executeQuery();
-			if(!res.next()) { throw new FormeDoncExistException(""
-					+ "Le rectangle, donc le nom " + obj.getNameForme() + ",  que vous voulez suprimer"
-					+ " n'Ã©xiste pas :( !");}
-			else {
+			if (res.next()) {
 				PreparedStatement prepare = connect.prepareStatement(
 						"DELETE FROM rectangle "
 						+ "WHERE NameForme = ?");
 				prepare.setString(1, obj.getNameForme());
 				int result = prepare.executeUpdate();
 				assert result == 1;
-		}}
+		}
+			}
 		catch (SQLException e) {
 			e.getMessage();
 		}

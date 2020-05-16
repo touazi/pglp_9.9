@@ -4,10 +4,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import lyli.dessin.exeption.FormeExisteDeja;
 import lyli.dessin.Carre;
 import lyli.dessin.Coordonnee;
-import lyli.dessin.exeption.FormeDoncExistException;
 public class JdbsDaoCarreDerby implements DAO<Carre> {
 	Connection connect = null;
 	public JdbsDaoCarreDerby(Connection connect ) 
@@ -16,7 +14,7 @@ public class JdbsDaoCarreDerby implements DAO<Carre> {
 	}
 	private static String dburl = CeartionBDDREBY.dburl;
 	@Override
-	public Carre create(Carre obj) throws FormeExisteDeja {
+	public Carre create(Carre obj) {
 		try (Connection connect = DriverManager.getConnection(dburl)) {
 			PreparedStatement prepare = connect.prepareStatement(
 					"INSERT  INTO Carre (NameForme, topLeft_x, topLeft_y, side)" +
@@ -36,7 +34,7 @@ public class JdbsDaoCarreDerby implements DAO<Carre> {
 	}
 
 	@Override
-	public Carre read(String id) throws FormeDoncExistException  {
+	public Carre read(String id)  {
 		// TODO Auto-generated method stub
 		Carre carre = null;
 		try (Connection connect = DriverManager.getConnection(dburl)) {
@@ -45,14 +43,13 @@ public class JdbsDaoCarreDerby implements DAO<Carre> {
 			prepare.setString(1, id);
 			ResultSet result = prepare.executeQuery();
 			if(result.next()) {
-				carre =   new Carre (result.getString("NameForme"),
+				carre = new Carre (result.getString("NameForme"),
 							new Coordonnee(result.getInt("topLeft_x"), result.getInt("topLeft_y")), 
 							result.getInt("side"));
 				result.close();
 				}
 			else { 
-		       // throw new FormeDoncExistException("Le Carre "+ result.getString("NameForme") + "que vous chercher n'Ã©xiste pas :( !");
-				return null;}
+		      return null;}
 		
 		}
 		catch (SQLException e) {
@@ -64,17 +61,13 @@ public class JdbsDaoCarreDerby implements DAO<Carre> {
 
 
 	@Override
-	public Carre update(Carre obj) throws FormeDoncExistException {
+	public Carre update(Carre obj) {
 		try (Connection connect = DriverManager.getConnection(dburl)) {
 			PreparedStatement prepareFind = connect.prepareStatement(
 					"SELECT * FROM carre WHERE NameForme = ?  ");
 			prepareFind.setString(1, obj.getNameForme());
 			ResultSet res = prepareFind.executeQuery();
-			
-			if(!res.next()) { throw new FormeDoncExistException(""
-					+ "Le carre que vous voulez modifier"
-					+ " n'Ã©xiste pas :( !");}
-			else {  
+			if (res.next()) {  
 			PreparedStatement prepare = connect.prepareStatement(
 					"UPDATE carre SET topLeft_x = ?, "
 					+ "topLeft_y = ?, "
@@ -90,14 +83,11 @@ public class JdbsDaoCarreDerby implements DAO<Carre> {
 		catch (SQLException e) {
 			e.getMessage();
 		} 
-		System.out.println("lllllllllllllllllllllllllllllllllllllllllll");
-		obj.affiche();
-		System.out.println("llllllllllllllllllllllllllllllllllllllllllll");
 		return obj;	
 	}
 
 	@Override
-	public void delete(Carre obj) throws FormeDoncExistException {
+	public void delete(Carre obj) {
 		try (Connection connect = DriverManager.getConnection(dburl)) {
 			PreparedStatement prepare = connect.prepareStatement(
 					"DELETE FROM carre "
@@ -115,10 +105,6 @@ public class JdbsDaoCarreDerby implements DAO<Carre> {
 					"SELECT * FROM carre WHERE NameForme = ?  ");
 			prepareFind.setString(1, obj.getNameForme());
 			ResultSet res = prepareFind.executeQuery();
-			
-		/*	if(!res.next()) { throw new FormeDoncExistException(""
-					+ "Le carre, donc le nom " + obj.getNameForme() + ", que vous voulez suprimer"
-					+ " n'Ã©xiste pas :( !");}*/
 			if (res.next()) {
 				PreparedStatement prepare = connect.prepareStatement(
 						"DELETE FROM carre "

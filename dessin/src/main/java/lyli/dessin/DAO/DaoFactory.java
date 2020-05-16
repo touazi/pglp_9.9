@@ -12,7 +12,7 @@ import lyli.dessin.Triangle;
 
 public class DaoFactory {
 	 Connection connect = null;
-	public DaoFactory() throws SQLException {
+	public DaoFactory() throws SQLException  {
 	    
 		String dburl = CeartionBDDREBY.dburl;
     	connect = DriverManager.getConnection(dburl);
@@ -53,7 +53,7 @@ public class DaoFactory {
 			  }
 
 			  /**
-			  * Disonnects from database.
+			  * Disonnecter la database.
 			  */
 			  public void disconnect() {
 

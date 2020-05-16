@@ -5,9 +5,6 @@ import java.sql.*;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
-import lyli.dessin.exeption.TableExisteDeja;
-
 public class CeartionBDDREBY {
 	private static final String userName = "";
 	private static final String password = "";
@@ -21,7 +18,7 @@ public class CeartionBDDREBY {
 		connectionProps.put("user", password);
 	}
 	
-	public void createTables() throws TableExisteDeja {
+	public void createTables() {
 		try (Connection connect = DriverManager.getConnection(dburl)) {
 			  Statement state = connect.createStatement();
 			    DatabaseMetaData databaseMetadata = connect.getMetaData();
