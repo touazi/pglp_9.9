@@ -1,7 +1,12 @@
 package lyli.dessin.exeption;
 
 public class FormeDoncExistException extends Exception {
- public FormeDoncExistException(String message) {
+ /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public FormeDoncExistException(String message) {
        super (message);
     }
  

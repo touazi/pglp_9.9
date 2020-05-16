@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import lyli.dessin.exeption.FormeExisteDeja;
 import lyli.dessin.Carre;
-import lyli.dessin.CeartionBDDREBY;
 import lyli.dessin.Coordonnee;
 import lyli.dessin.exeption.FormeDoncExistException;
 public class JdbsDaoCarreDerby implements DAO<Carre> {
@@ -117,10 +116,10 @@ public class JdbsDaoCarreDerby implements DAO<Carre> {
 			prepareFind.setString(1, obj.getNameForme());
 			ResultSet res = prepareFind.executeQuery();
 			
-			if(!res.next()) { throw new FormeDoncExistException(""
+		/*	if(!res.next()) { throw new FormeDoncExistException(""
 					+ "Le carre, donc le nom " + obj.getNameForme() + ", que vous voulez suprimer"
-					+ " n'Ã©xiste pas :( !");}
-			else {
+					+ " n'Ã©xiste pas :( !");}*/
+			if (res.next()) {
 				PreparedStatement prepare = connect.prepareStatement(
 						"DELETE FROM carre "
 						+ "WHERE NameForme = ?");

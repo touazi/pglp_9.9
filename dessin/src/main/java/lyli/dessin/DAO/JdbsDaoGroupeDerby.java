@@ -140,10 +140,11 @@ public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 			PreparedStatement prepareFind = connect.prepareStatement(
 					"SELECT * FROM groupe WHERE id = ?  ");
 			prepareFind.setString(1, obj.getNameForme());
-		      DAO<Carre> daoCar = DaoFactory.getCarreDAO();
-		      DAO<Cercle> daoCercle = DaoFactory.getCercleDAO();
-		      DAO<Triangle> daoTriangle = DaoFactory.getTriangleDAO();
-		      DAO<Rectangle> daoRectangle = DaoFactory.getRectangleDAO();
+			DaoFactory factory = new DaoFactory();
+		      DAO<Carre> daoCar = factory.getCarreDAO();
+		      DAO<Cercle> daoCercle = factory.getCercleDAO();
+		      DAO<Triangle> daoTriangle = factory.getTriangleDAO();
+		      DAO<Rectangle> daoRectangle = factory.getRectangleDAO();
 		      List<Forme> lp = obj.getListForm();
 				for(Iterator<Forme> it=lp.iterator(); it.hasNext();) {
 		    	Forme f = it.next();
@@ -178,10 +179,10 @@ public class JdbsDaoGroupeDerby implements DAO<GroupeForme> {
 					"SELECT * FROM groupe WHERE id = ?  ");
 			prepareFind.setString(1, obj.getNameForme());
 			ResultSet res = prepareFind.executeQuery();
-			if(!res.next()) { throw new FormeDoncExistException(""
+			/*if(!res.next()) { throw new FormeDoncExistException(""
 					+ "Le groupe , donc le nom " + obj.getNameForme() + ", que vous voulez suprimer"
-					+ " n'Ã©xiste pas :( !");}
-			else {
+					+ " n'Ã©xiste pas :( !");}*/
+			if (res.next()) {
 				PreparedStatement prepare = connect.prepareStatement(
 						"DELETE FROM groupe "
 						+ "WHERE id = ?");

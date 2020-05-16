@@ -1,4 +1,4 @@
-package lyli.dessin;
+package lyli.dessin.DAO;
 
 
 import java.sql.*;
@@ -12,10 +12,11 @@ public class CeartionBDDREBY {
 	private static final String userName = "";
 	private static final String password = "";
 	
-	public static String dburl = "jdbc:derby:Derby;create=true";
+	public static String dburl = null;
 	
-	public CeartionBDDREBY() {
+	public CeartionBDDREBY(String name) {
 		Properties connectionProps = new Properties();
+		dburl = "jdbc:derby:" + name + ";create=true";
 		connectionProps.put("user", userName);
 		connectionProps.put("user", password);
 	}
@@ -27,7 +28,7 @@ public class CeartionBDDREBY {
 			    ResultSet resultCARRE = databaseMetadata.getTables(null, null, "CARRE", null);
 			    
 			    if (resultCARRE.next()) {
-			    	throw new TableExisteDeja("TABLE ALREADY EXISTS");
+			    	//throw new TableExisteDeja("TABLE ALREADY EXISTS");
 			    } else {
 			
 			state.addBatch(
@@ -45,7 +46,7 @@ public class CeartionBDDREBY {
 			    ResultSet resultRectangle = databaseMetadata.getTables(null, null, "RECTANGLE", null);
 			    
 			    if (resultRectangle.next()) {
-			    	throw new TableExisteDeja("TABLE ALREADY EXISTS");
+			    	//throw new TableExisteDeja("TABLE ALREADY EXISTS");
 			    } else {
 			
 			state.addBatch(
@@ -64,7 +65,7 @@ public class CeartionBDDREBY {
 			    ResultSet resultTriangle = databaseMetadata.getTables(null, null, "TRIANGLE", null);
 			    
 			    if (resultTriangle.next()) {
-			    	throw new TableExisteDeja("TABLE ALREADY EXISTS");
+			    	//throw new TableExisteDeja("TABLE ALREADY EXISTS");
 			    } else {
 			
 			state.addBatch(
@@ -85,7 +86,7 @@ public class CeartionBDDREBY {
 			    ResultSet resultCercle = databaseMetadata.getTables(null, null, "CERCLE", null);
 			    
 			    if (resultCercle.next()) {
-			    	throw new TableExisteDeja("TABLE ALREADY EXISTS");
+			    	//throw new TableExisteDeja("TABLE ALREADY EXISTS");
 			    } else {
 			
 			state.addBatch(
@@ -101,14 +102,14 @@ public class CeartionBDDREBY {
 			    
 			    ResultSet result = databaseMetadata.getTables(null, null, "GROUPE", null);
 			    if (result.next()) {
-			    	throw new TableExisteDeja("TABLE ALREADY EXISTS");
+			    	//throw new TableExisteDeja("TABLE ALREADY EXISTS");
 			    } else {			
 				state.addBatch("CREATE TABLE groupe ("
 						+ "id VARCHAR(100) PRIMARY KEY"
 						+ ")");}
 			    ResultSet res = databaseMetadata.getTables(null, null, "APPARTENIR", null);
 			    if (res.next()) {
-			    	throw new TableExisteDeja("TABLE ALREADY EXISTS");
+			    //	throw new TableExisteDeja("TABLE ALREADY EXISTS");
 			    } else {
 				state.addBatch( 
 						"CREATE TABLE appartenir ("

@@ -1,8 +1,6 @@
 package lyli.dessin.command;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-
 import lyli.dessin.Carre;
 import lyli.dessin.Cercle;
 import lyli.dessin.Forme;
@@ -15,8 +13,7 @@ import lyli.dessin.exeption.FormeDoncExistException;
 import lyli.dessin.exeption.FormeExisteDeja;
 
 public class CommandDeCreation implements Command {
-
-	Connection connect = null;    
+   
 	/**
 	     * forme à créer.
 	     */
@@ -27,7 +24,6 @@ public class CommandDeCreation implements Command {
 	     */
 	    public CommandDeCreation(final Forme f) {
 	        this.forme = f;
-	        this.connect = connect;
 	      /*  System.out.println("jjjjjjjjjjjjjjjjjj");
 	        f.affiche();
 	        forme.affiche();
@@ -43,27 +39,30 @@ public class CommandDeCreation implements Command {
 	     * @throws FormeDoncExistException 
 	     */
 	    public void execute() throws SQLException, FormeExisteDeja, FormeDoncExistException {
-	        Forme f;
+	       
 	       // forme.affiche();
 	        DaoFactory factory = new DaoFactory();
 	        if (forme instanceof Cercle) {
 	        	//System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmm");
 	            DAO<Cercle> dao = factory.getCercleDAO();
-	            f = dao.create((Cercle) forme);
+	            dao.create((Cercle) forme);
 	        } else if (forme instanceof Carre) {
 	        	DAO<Carre> dao = factory.getCarreDAO();
-	            f = dao.create((Carre) forme);
+	            dao.create((Carre) forme);
 	        } else if (forme instanceof Rectangle) {
 	        	DAO<Rectangle> dao = factory.getRectangleDAO();
-	            f = dao.create((Rectangle) forme);
+	            dao.create((Rectangle) forme);
+	            System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmm");
+	            dao.read(forme.getNameForme()).affiche();
+	            System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmm");
 	        } else if (forme instanceof Triangle) {
 	        	DAO<Triangle> dao = factory.getTriangleDAO();
-	            f = dao.create((Triangle) forme);
+	             dao.create((Triangle) forme);
 	        } else {
 	        	DAO<GroupeForme> dao = factory.getGroupeDAO();
-	            f = dao.create((GroupeForme) forme);
+	             dao.create((GroupeForme) forme);
 	        }
-	        factory.disconnect();;
+	        factory.disconnect();
 	     
 	    }
 

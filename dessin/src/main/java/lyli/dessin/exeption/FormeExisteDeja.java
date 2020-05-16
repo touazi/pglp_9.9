@@ -1,7 +1,12 @@
 package lyli.dessin.exeption;
 
 public class FormeExisteDeja extends Exception {
-	 public FormeExisteDeja(String message) {
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public FormeExisteDeja(String message) {
 	       super (message);
 	    }
 }

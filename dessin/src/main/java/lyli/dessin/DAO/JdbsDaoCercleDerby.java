@@ -1,7 +1,6 @@
 package lyli.dessin.DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -102,10 +101,13 @@ public class JdbsDaoCercleDerby implements DAO<Cercle> {
 					+ "centre_y = ?, "
 					+ "rayon = ? WHERE NameForme = ?");
 			prepare.setInt(1, obj.getCoordonnee().getX());
+			
 			prepare.setInt(2, obj.getCoordonnee().getY());
 			prepare.setInt(3, obj.getrayon());
 			prepare.setString(4, obj.getNameForme());
 			int result = prepare.executeUpdate();
+			System.out.println(obj.getCoordonnee().getX());
+			System.out.println(obj.getCoordonnee().getY());
 			assert result == 1;}
 		}
 		catch (SQLException e) {

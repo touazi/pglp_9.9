@@ -25,7 +25,6 @@ public class TestDAO {
     DAO<Triangle> ppptriangle;
     DAO<Rectangle> Rectangleppp;
     DAO<GroupeForme> groupeder;
-	private Forme creategroupe;
 	DaoFactory factory ;
 	@Before()
 	public void setUp() throws SQLException {

@@ -26,20 +26,20 @@ public class TestDrawingTui {
 		 SeparEgal1[1] = SeparEgal1[1].replace(" ", "");
 		 DrawingTUI n = new DrawingTUI();
 	  	  Tokens = SeparEgal1[1].split("cercle");
-	      	cercle = n.create(Tokens, "cer" ,SeparEgal1[0].trim());
+	      	cercle = n.createForme(Tokens, "cer" ,SeparEgal1[0].trim());
 	      	SeparEgal2 = command2.split("=");
 	      	SeparEgal2[1] = SeparEgal2[1].replace(" ", "");
 	      	Tokens = SeparEgal2[1].split("triangle");
-	      	triangle = n.create(Tokens, "tri" ,SeparEgal2[0].trim());
+	      	triangle = n.createForme(Tokens, "tri" ,SeparEgal2[0].trim());
 	      	 SeparEgal3 = command3.split("=");
 	      	 SeparEgal3[1] = SeparEgal3[1].replace(" ", "");
 	     	Tokens = SeparEgal3[1].split("rectangle");
-	      	rectangle = n.create(Tokens, "rec" ,SeparEgal3[0].trim());
+	      	rectangle = n.createForme(Tokens, "rec" ,SeparEgal3[0].trim());
 	      	SeparEgal4 = command4.split("=");
 	      	Tokens = SeparEgal4[1].split("carre");
 	        SeparEgal4[1] = SeparEgal4[1].replace(" ", "");
 	        	
-	      	carre = n.create(Tokens, "car" ,SeparEgal4[0].trim());
+	      	carre = n.createForme(Tokens, "car" ,SeparEgal4[0].trim());
 	      
 	}
 	@Test
