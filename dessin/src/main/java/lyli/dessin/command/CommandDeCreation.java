@@ -1,5 +1,4 @@
 package lyli.dessin.command;
-
 import java.sql.SQLException;
 import lyli.dessin.Carre;
 import lyli.dessin.Cercle;
@@ -9,50 +8,91 @@ import lyli.dessin.Rectangle;
 import lyli.dessin.Triangle;
 import lyli.dessin.DAO.DAO;
 import lyli.dessin.DAO.DaoFactory;
+/**.
+ * <b>"la classe CommandDeCreation."</b>
+ * <p>"implementation du patern Command"
+ * @author TOUAZI,Lylia
+ */
 public class CommandDeCreation implements Command {
-   
+/**
+* forme à créer.
+*@see CommandDeCreation#CommandDeCreation(Forme)
+* @see CommandDeCreation#execute()
+*/
+	private Forme forme;
+	/**  DaoFactory de type DaoFactory.
+	    * @see CommandDeCreation#CommandDeCreation(Forme)
+	    * @see CommandDeCreation#execute()
+	    */
+	private DaoFactory factory;
 	/**
-	     * forme à créer.
-	     */
-	    private Forme forme;
-	    /**
-	     * constructeur de la classe.
-	     * @param forme forme à créer
-	     */
-	    public CommandDeCreation(final Forme forme) {
-	        this.forme = forme;
-	    }
-	    public Forme getForme() {
-	    	return this.forme;
-	    }
-	    /**
-	     * execution de la commande create.
-	     * @throws SQLException lever les Exceptions SQL
-	     */
-	    public void execute() throws SQLException {
-	        DaoFactory factory = new DaoFactory();
-	        if (forme instanceof Cercle) {
-	        	 DAO<Cercle> dao = factory.getCercleDAO();
-	            dao.create((Cercle) forme);
-	            factory.disconnect();
-	        } else if (forme instanceof Carre) {
-	        	DAO<Carre> dao = factory.getCarreDAO();
-	            dao.create((Carre) forme);
-	            factory.disconnect();
-	        } else if (forme instanceof Rectangle) {
-	        	DAO<Rectangle> dao = factory.getRectangleDAO();
-	            dao.create((Rectangle) forme);
-	            factory.disconnect();
-	           } else if (forme instanceof Triangle) {
-	        	DAO<Triangle> dao = factory.getTriangleDAO();
-	             dao.create((Triangle) forme);
-	             factory.disconnect();
-	        } else  if(forme instanceof GroupeForme) {
-	        	DAO<GroupeForme> dao = factory.getGroupeDAO();
-	             dao.create((GroupeForme) forme);
-	             factory.disconnect();
-	        }else factory.disconnect();
-	     
-	    }
-
+	 * constructeur de la classe CommandDeCreation.
+	 * @param forme forme à créer
+	 *  @throws SQLException lever les Exceptions SQL
+	 */
+	public CommandDeCreation(final Forme forme) throws SQLException {
+		this.forme = forme;
+		this.factory = new DaoFactory();
+	}
+	/**
+	 * La methode getForme.
+	 * @return la forme cree
+	 */
+	public final Forme getForme() {
+		return this.forme;
+	}
+	/**
+	 * execution de la commande create.
+	 */
+	public final void execute() {
+		Forme formeCree = null;
+		if (forme instanceof Cercle) {
+			DAO<Cercle> dao = factory.getCercleDAO();
+			formeCree = dao.create((Cercle) forme);
+			if(formeCree != null) {
+				System.out.println("Le cercle \""
+						+ forme.getNameForme()
+						+ "\" a bien été crée :) !");
+			}
+			factory.disconnect();
+		} else if (forme instanceof Carre) {
+			DAO<Carre> dao = factory.getCarreDAO();
+			formeCree = dao.create((Carre) forme);
+			if(formeCree != null) {
+				System.out.println("Le carre \""
+						+ forme.getNameForme()
+						+ "\" a bien été crée :) !");
+			}
+			factory.disconnect();
+		} else if (forme instanceof Rectangle) {
+			DAO<Rectangle> dao = factory.getRectangleDAO();
+			formeCree = dao.create((Rectangle) forme);
+			if(formeCree != null) {
+				System.out.println("Le retangle \""
+						+ forme.getNameForme()
+						+ "\" a bien été crée :) !");
+			}
+			factory.disconnect();
+		} else if (forme instanceof Triangle) {
+			DAO<Triangle> dao = factory.getTriangleDAO();
+			formeCree = dao.create((Triangle) forme);
+			if(formeCree != null) {
+				System.out.println("Le triangle \" "
+						+ forme.getNameForme()
+						+ "\" a bien été crée :) !");
+			}
+			factory.disconnect();
+		} else if (forme instanceof GroupeForme) {
+			DAO<GroupeForme> dao = factory.getGroupeDAO();
+			formeCree = dao.create((GroupeForme) forme);
+			if(formeCree != null) {
+				System.out.println("Le dessin \" "
+						+ forme.getNameForme()
+						+ "\" a bien été crée :) !");
+			}
+			factory.disconnect();
+		} else {
+			factory.disconnect();
+			}
+	}
 }
