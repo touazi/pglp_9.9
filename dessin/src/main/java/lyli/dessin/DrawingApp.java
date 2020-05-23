@@ -4,7 +4,7 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.Scanner;
 import lyli.dessin.DAO.CeartionBDDREBY;
-import lyli.dessin.command.Command;
+import lyli.dessin.command.CommandS;
 import lyli.dessin.exeption.FormeDoncExistException;
 
 /**
@@ -160,7 +160,7 @@ public class DrawingApp {
 		this.menu();
 		String cmd = saisie.nextLine();
 		cmd = cmd.replace(" ", "");
-		Command c = null;
+		CommandS c = null;
 		while (!cmd.equalsIgnoreCase("exit")) {
 			if (!(cmd.equalsIgnoreCase(""))) {
 				c = dt.nextCommand(cmd);
@@ -201,7 +201,7 @@ public class DrawingApp {
 		} else {
 			b = true;
 		}
-		}else {
+		} else {
 			b = false;
 			name = name.replace(" ", "");
 			System.err.println("Le nom du fichier dois pas"
@@ -225,8 +225,7 @@ public class DrawingApp {
 			System.err.println("Le nom du fichier dois pas"
 					+ " etre composer que des espaces ");
 		}
-		}
-			
+		}	
 		// s.close();
 		CeartionBDDREBY nn = new CeartionBDDREBY(name);
 		nn.createTables();

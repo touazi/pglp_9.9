@@ -12,7 +12,7 @@ import lyli.dessin.DAO.DaoFactory;
  * <b>"L'implementation de la class CommandSuprimer.</b>
  * @author TOUAZI,Lylia
  */
-public class CommandSuprimer implements Command {
+public class CommandSuprimer implements CommandS {
 /**
 	 * forme à suprimer.
 	 *@see CommandSuprimer#CommandSuprimer(Forme)

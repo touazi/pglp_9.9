@@ -12,14 +12,14 @@ public abstract class Forme {
 	 * constructeur pour la class Forme.
 	 * @param nameForme définir le nom de la forme
 	 */
-	public Forme(String nameForme) {
+	public Forme(final String nameForme) {
 		this.nameForme = nameForme;
 	}
 	/**
 	 * le nom de la forme.
 	 * @return le nom de la forme
 	 */
-	public String getNameForme() {
+	public final String getNameForme() {
 		return nameForme;
 	}
 	/**
@@ -28,14 +28,14 @@ public abstract class Forme {
 	 * @param x         decalage d'ax des x
 	 * @param y         decalage de l'ax des y
 	 **/
-	public abstract void move(String nameForme, int x, int y);
+	 abstract void move(String nameForme, int x, int y);
 	/**
 	 * affichage de la forme.
 	 */
-	public abstract void affiche();
+	 abstract void affiche();
 	/**
 	 * methode isGroupe.
 	 * @return renvoie si la forme est un groupe ou non
 	 */
-	abstract public boolean isGroupe();
+	abstract boolean isGroupe();
 }

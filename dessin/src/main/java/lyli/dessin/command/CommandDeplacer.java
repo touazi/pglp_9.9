@@ -12,7 +12,7 @@ import lyli.dessin.DAO.DaoFactory;
  * <b>"L'implementation de la class CommandSuprimer.</b>
  * @author TOUAZI,Lylia
  */
-public class CommandDeplacer implements Command {
+public class CommandDeplacer implements CommandS {
 /**
  * forme à deplacer.
  * @see CommandDeplacer#CommandDeplacer(Forme)

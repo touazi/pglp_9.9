@@ -4,13 +4,13 @@ package lyli.dessin.command;
  * <p>"implementation du patern Command"
  * @author TOUAZI,Lylia
  */
-public class Commandexit implements Command {
+public class Commandexit implements CommandS {
 /**.
 * execution de la commande de exit.
 */
-	@Override
-	public final void execute() {
-		// TODO Auto-generated method stub
-		System.exit(0);
+@Override
+public final void execute() {
+// TODO Auto-generated method stub
+	System.exit(0);
 	}
 }

@@ -1,6 +1,6 @@
 package lyli.dessin;
 /**
- * class Triangle
+ * class Triangle.
  * @author TOUAZI,Lylia
  */
 public class Triangle extends Forme implements java.io.Serializable {
@@ -8,6 +8,10 @@ public class Triangle extends Forme implements java.io.Serializable {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * nom du triangle.
+	 * */
+	private String nameForme;
 	/**
 	 * le point1 du Triangle.
 	 */
@@ -27,11 +31,12 @@ public class Triangle extends Forme implements java.io.Serializable {
 	 * @param point2    le point2 du Triangle.
 	 * @param point3    le point3 du Triangle.
 	 */
-	public Triangle(final String nameForme, 
+	public Triangle(final String nameForme,
 			final Coordonnee point1,
 			final Coordonnee point2,
 			final Coordonnee point3) {
 		super(nameForme);
+		this.nameForme = nameForme;
 		this.point1 = point1.copy();
 		this.point2 = point2.copy();
 		this.point3 = point3.copy();
@@ -60,10 +65,10 @@ public class Triangle extends Forme implements java.io.Serializable {
 	 */
 	@Override
 	public final void affiche() {
-		System.out.println("  Triangle("
-				+ "position point1 = " + point1 
+		System.out.println("  Triangle(nom = \"" + nameForme
+				+ "\", position point1 = " + point1
 				+ ",position point2 = " + point2
-				+ ", position point3 = " + point3 
+				+ ", position point3 = " + point3
 				+ ")");
 	}
 	/**

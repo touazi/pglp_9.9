@@ -1,12 +1,16 @@
 package lyli.dessin;
 /**
- * class Rectangle
+ * class Rectangle.
  * @author TOUAZI,Lylia
  */
 public class Rectangle extends Forme implements java.io.Serializable {
-	/**
+/**
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * nom du rectangle.
+	 * */
+	private String nameForme;
 	/**
 	 * point haut à gauche du rectangle.
 	 */
@@ -31,6 +35,7 @@ public class Rectangle extends Forme implements java.io.Serializable {
 			final int sideTop,
 			final int sideLeft) {
 		super(nameForme);
+		this.nameForme = nameForme;
 		this.topLeft = topLeft.copy();
 		this.sideTop = sideTop;
 		this.sideLeft = sideLeft;
@@ -45,7 +50,7 @@ public class Rectangle extends Forme implements java.io.Serializable {
 	 * @param y         le décalage de la coorrdonnee sur l'ax des Y
 	 */
 	@Override
-	public final void move(final String nameForme, 
+	public final void move(final String nameForme,
 			final int x, final int y) {
 		this.topLeft.setX(this.topLeft.getX() + x);
 		this.topLeft.setY(this.topLeft.getY() + y);
@@ -56,10 +61,10 @@ public class Rectangle extends Forme implements java.io.Serializable {
 	@Override
 	public final void affiche() {
 		System.out.println(
-				"  Rectangle("
-				+ "longueur = " + sideTop 
+				"  Rectangle(nom = \"" + nameForme
+				+ "\", longueur = " + sideTop
 				+ ", largeur = " + sideLeft
-				+ ", position point = " + topLeft 
+				+ ", position point = " + topLeft
 				+ ")");
 	}
 	/**

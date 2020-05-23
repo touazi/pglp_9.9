@@ -1,14 +1,14 @@
 package lyli.dessin.command;
 import java.sql.SQLException;
 /**.
- * <b>"l'inteface Command."</b>
+ * <b>"l'inteface CommandS."</b>
  * <p>"implementation du patern Command"
  * @author TOUAZI,Lylia
  */
-public interface Command {
+public interface CommandS {
 /**
 * Methode execute.
 * @throws SQLException lever les Exceptions SQL
 * */
-public void execute() throws SQLException;
+void execute() throws SQLException;
 }
