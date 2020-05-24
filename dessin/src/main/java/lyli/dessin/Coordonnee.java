@@ -13,12 +13,12 @@ private int x;
 private int y;
 /**
  * constructeur de la class Coordonnee.
- * @param x la possition dans l'ax des x
- * @param y la possition dans l'ax des Y
+ * @param xx la possition dans l'ax des x
+ * @param yy la possition dans l'ax des Y
  */
-public Coordonnee(final int x, final int y) {
-	this.x = x;
-	this.y = y;
+public Coordonnee(final int xx, final int yy) {
+	this.x = xx;
+	this.y = yy;
 }
 /**
  * méthode copy.
@@ -37,17 +37,17 @@ public final boolean egale(final Coordonnee coordonnee) {
 }
 /**
  * methode qui modifie la coordonée x.
- * @param x à modifier
+ * @param xx à modifier
  */
-public final void setX(final int x) {
-	this.x = x;
+public final void setX(final int xx) {
+	this.x = xx;
 }
 /**
  * methode qui modifie la coordonée y.
- * @param y a modifier
+ * @param yy a modifier
  */
-public final void setY(final int y) {
-	this.y = y;
+public final void setY(final int yy) {
+	this.y = yy;
 }
 /**
  * methode qui retourne la coordonée x.
@@ -57,7 +57,7 @@ public final int getX() {
 	return x;
 }
 /**
- * methode qui retourne la coordonée y. 
+ * methode qui retourne la coordonée y.
  * @return coordonée y
  */
 public final int getY() {

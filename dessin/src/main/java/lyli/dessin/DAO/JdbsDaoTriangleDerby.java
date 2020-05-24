@@ -36,10 +36,10 @@ static final int SIX = 6;
 static final int SEPT = 7;
 /**
  * constructeur de la classe JdbsDaoTriangleDerby.
- * @param connect Connection à la base de donnée.
+ * @param connectt Connection à la base de donnée.
  */
-public JdbsDaoTriangleDerby(final Connection connect) {
-	this.connect = connect;
+public JdbsDaoTriangleDerby(final Connection connectt) {
+	this.connect = connectt;
 }
 /**
  * methode create triangle.

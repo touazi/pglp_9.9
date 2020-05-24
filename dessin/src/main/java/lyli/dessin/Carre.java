@@ -41,16 +41,16 @@ public final int getside() {
 }
 /**
  * Constructeur de la class Carre.
- * @param nameForme le nom de la du carré.
- * @param topLeft   la position du point topleft
- * @param side      la taille d'un coté du carre
+ * @param nameFormee le nom de la du carré.
+ * @param topLeftt   la position du point topleft
+ * @param sidee      la taille d'un coté du carre
  */
-public Carre(final String nameForme, final Coordonnee topLeft,
-		final int side) {
-	super(nameForme);
-	this.topLeft = topLeft.copy();
-	this.side = side;
-	this.nameForme = nameForme;
+public Carre(final String nameFormee, final Coordonnee topLeftt,
+		final int sidee) {
+	super(nameFormee);
+	this.topLeft = topLeftt.copy();
+	this.side = sidee;
+	this.nameForme = nameFormee;
 }
 /**
  * la methode affiche. affiche les information du carré.
@@ -66,15 +66,15 @@ public final void affiche() {
  * <p>
  * pour déplacer la carré
  * </p>
- * @param nameForme le nom de la du carré.
- * @param x         le décalage de la corrdonnee sur l'ax des X
- * @param y         le décalage de la corrdonnee sur l'ax des Y
+ * @param nameFormee le nom de la du carré.
+ * @param xx         le décalage de la corrdonnee sur l'ax des X
+ * @param yy         le décalage de la corrdonnee sur l'ax des Y
  */
 @Override
-public final void move(final String nameForme, final int x,
-		final int y) {
-	this.topLeft.setX(this.topLeft.getX() + x);
-	this.topLeft.setY(this.topLeft.getY() + y);
+public final void move(final String nameFormee, final int xx,
+		final int yy) {
+	this.topLeft.setX(this.topLeft.getX() + xx);
+	this.topLeft.setY(this.topLeft.getY() + yy);
 }
 /**
  * La methode isGroupe.

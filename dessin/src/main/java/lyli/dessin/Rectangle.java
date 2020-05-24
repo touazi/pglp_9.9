@@ -25,20 +25,20 @@ public class Rectangle extends Forme implements java.io.Serializable {
 	private int sideLeft;
 	/**
 	 * Constructeur de la class Rectangle.
-	 * @param nameForme le nom de la du Rectangle.
-	 * @param topLeft   la position du point topleft
-	 * @param sideTop   la taille d'un coté haut du carre
-	 * @param sideLeft  la taille d'un coté left du carre
+	 * @param nameFormee le nom de la du Rectangle.
+	 * @param topLeftt   la position du point topleft
+	 * @param sideTopp   la taille d'un coté haut du carre
+	 * @param sideLeftt  la taille d'un coté left du carre
 	 */
-	public Rectangle(final String nameForme,
-			final Coordonnee topLeft,
-			final int sideTop,
-			final int sideLeft) {
-		super(nameForme);
-		this.nameForme = nameForme;
-		this.topLeft = topLeft.copy();
-		this.sideTop = sideTop;
-		this.sideLeft = sideLeft;
+	public Rectangle(final String nameFormee,
+			final Coordonnee topLeftt,
+			final int sideTopp,
+			final int sideLeftt) {
+		super(nameFormee);
+		this.nameForme = nameFormee;
+		this.topLeft = topLeftt.copy();
+		this.sideTop = sideTopp;
+		this.sideLeft = sideLeftt;
 	}
 	/**
 	 * la methode move.

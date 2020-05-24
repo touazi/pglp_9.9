@@ -1,7 +1,7 @@
 package lyli.dessin.command;
 import lyli.dessin.Cercle;
 import lyli.dessin.Coordonnee;
-/**
+/**.
  * <b>"L'implementation de la class CommandeCreateCercle."</b>
  * @author TOUAZI,Lylia
  */
@@ -24,15 +24,15 @@ CommandeCreateForme<Cercle> {
 
   /**
    * constructeur de la class CommandeCreateCercle.
-   * @param nomCercle nom du Cercle.
-   * @param centre le centre du cercle.
-   * @param rayon du cercle.
+   * @param nomCerclee nom du Cercle.
+   * @param centree le centre du cercle.
+   * @param rayonn du cercle.
    */
-  public CommandeCreateCercle(final String nomCercle, final
-		  Coordonnee centre, final int rayon) {
-	    this.nomCercle = nomCercle;
-	    this.centre = centre;
-	    this.rayon = rayon;
+  public CommandeCreateCercle(final String nomCerclee, final
+		  Coordonnee centree, final int rayonn) {
+	    this.nomCercle = nomCerclee;
+	    this.centre = centree;
+	    this.rayon = rayonn;
 	     }
 
   @Override
@@ -42,5 +42,5 @@ CommandeCreateForme<Cercle> {
    */
   public final Cercle execute() {
     return new Cercle(nomCercle, centre, rayon);
-  } 
+  }
 }

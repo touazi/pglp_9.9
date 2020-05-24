@@ -36,10 +36,10 @@ static final int SIX = 6;
 static final int SEPT = 7;
 /**
  * constructeur de la classe JdbsDaoRectangleDerby.
- * @param connect Connection à la base de donnée.
+ * @param connectt Connection à la base de donnée.
  */
-public JdbsDaoRectangleDerby(Connection connect) {
-	this.connect = connect;
+public JdbsDaoRectangleDerby(final Connection connectt) {
+	this.connect = connectt;
 }
 /**
  * methode create Rectangle.

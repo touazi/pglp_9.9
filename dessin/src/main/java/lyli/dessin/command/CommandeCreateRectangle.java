@@ -10,7 +10,7 @@ CommandeCreateForme<Rectangle> {
 /**
  * nom d'un rectangle.
  */
-	private String nameRactagle;
+  private String nameRactagle;
   /**
    * la Coordonnee d'un poind du rectangle.
    */
@@ -28,17 +28,17 @@ CommandeCreateForme<Rectangle> {
 
   /**
    * costructeur de la class CommandCreateRectangle.
-   * @param nameRactagle nom du rectangle.
-   * @param p la Coordonnee d'un poind du rectangle.
-   * @param sideLon la longueur du rectangle.
-   * @param sideLar la largeur du rectangle.
+   * @param nameRactaglee nom du rectangle.
+   * @param pp la Coordonnee d'un poind du rectangle.
+   * @param sideLonn la longueur du rectangle.
+   * @param sideLarr la largeur du rectangle.
    */
-  public CommandeCreateRectangle(final String nameRactagle, final
-		  Coordonnee p, final int sideLon, final int sideLar) {
-    this.nameRactagle = nameRactagle;
-    this.p = p;
-    this.sideLon = sideLon;
-    this.sideLar = sideLar;
+  public CommandeCreateRectangle(final String nameRactaglee, final
+        Coordonnee pp, final int sideLonn, final int sideLarr) {
+    this.nameRactagle = nameRactaglee;
+    this.p = pp;
+    this.sideLon = sideLonn;
+    this.sideLar = sideLarr;
   }
 
   @Override

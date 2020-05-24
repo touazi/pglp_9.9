@@ -32,24 +32,24 @@ public class GroupeForme extends Forme implements java.io.Serializable {
 	}
 	/**
 	 * constructeur de la class GroupeFormes.
-	 * @param nameForme nom de la forme
-	 * @param formes    la liste des formes.
+	 * @param nameFormee nom de la forme
+	 * @param formess    la liste des formes.
 	 */
-	public GroupeForme(final String nameForme,
-			final ArrayList<Forme> formes) {
-		super(nameForme);
-		this.formes = formes;
+	public GroupeForme(final String nameFormee,
+			final ArrayList<Forme> formess) {
+		super(nameFormee);
+		this.formes = formess;
 	}
 	/**
 	 * constructeur de la class GroupeFormes.
-	 * @param nameForme nom de la forme
-	 * @param idGroupe  idenfiant du groupe
+	 * @param nameFormee nom de la forme
+	 * @param idGroupee  idenfiant du groupe
 	 */
-	public GroupeForme(final String nameForme,
-			final String idGroupe) {
-		super(nameForme);
+	public GroupeForme(final String nameFormee,
+			final String idGroupee) {
+		super(nameFormee);
 		formes = new ArrayList<Forme>();
-		this.idGroupe = idGroupe;
+		this.idGroupe = idGroupee;
 	}
 	/**
 	 * methode move.

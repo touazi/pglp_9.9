@@ -14,10 +14,10 @@ CommandeCreateForme<GroupeForme> {
 
   /**
    * constructeur de la class CommandeCreateGroupe.
-   * @param nomGroupe nom du groupe.
+   * @param nomGroupee nom du groupe.
    */
-  public CommandeCreateGroupe(final String nomGroupe) {
-    this.nomGroupe = nomGroupe;
+  public CommandeCreateGroupe(final String nomGroupee) {
+    this.nomGroupe = nomGroupee;
   }
 
   /**

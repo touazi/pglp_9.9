@@ -10,10 +10,10 @@ public abstract class Forme {
 	private String nameForme;
 	/**
 	 * constructeur pour la class Forme.
-	 * @param nameForme définir le nom de la forme
+	 * @param nameFormee définir le nom de la forme
 	 */
-	public Forme(final String nameForme) {
-		this.nameForme = nameForme;
+	public Forme(final String nameFormee) {
+		this.nameForme = nameFormee;
 	}
 	/**
 	 * le nom de la forme.
@@ -24,11 +24,11 @@ public abstract class Forme {
 	}
 	/**
 	 * deplacement d'une forme.
-	 * @param nameForme le nom de la forme
+	 * @param nameFormee le nom de la forme
 	 * @param x         decalage d'ax des x
 	 * @param y         decalage de l'ax des y
 	 **/
-	 abstract void move(String nameForme, int x, int y);
+	 abstract void move(String nameFormee, int x, int y);
 	/**
 	 * affichage de la forme.
 	 */

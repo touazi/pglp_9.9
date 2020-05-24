@@ -9,7 +9,7 @@ package lyli.dessin.command;
 public interface CommandeCreateForme<T> extends Commande {
 /**.
 * Methode execute.
-*
+*@return un commande a executer.
 * */
 T execute();
 }

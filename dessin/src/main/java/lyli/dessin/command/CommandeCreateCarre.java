@@ -1,7 +1,7 @@
 package lyli.dessin.command;
 import lyli.dessin.Carre;
 import lyli.dessin.Coordonnee;
-/**
+/**.
  * <b>"L'implementation de la class CommandeCreateCarre."</b>
  * @author TOUAZI,Lylia
  */
@@ -23,15 +23,15 @@ public class CommandeCreateCarre implements CommandeCreateForme<Carre> {
 
 	  /**
 	   * constructeur de la class CommandeCreateCarre.
-	   * @param nomCarre nom du carre.
-	   * @param p la Coordonnee d'un point du carre.
-	   * @param side la taille d'un coté du carre.
+	   * @param nomCarree nom du carre.
+	   * @param pp la Coordonnee d'un point du carre.
+	   * @param sidee la taillee d'un coté du carre.
 	   */
-	  public CommandeCreateCarre(final String nomCarre, final
-			  Coordonnee p, final int side) {
-	    this.nomCarre = nomCarre;
-	    this.p = p;
-	    this.side = side;
+	  public CommandeCreateCarre(final String nomCarree, final
+			  Coordonnee pp, final int sidee) {
+	    this.nomCarre = nomCarree;
+	    this.p = pp;
+	    this.side = sidee;
 	  }
 
 	  @Override

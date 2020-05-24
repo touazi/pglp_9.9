@@ -118,10 +118,10 @@ if (res.next()) {
 + "side = ? WHERE NameForme = ?";
 			PreparedStatement prepare = connect.prepareStatement(
 					sql);
-			prepare.setInt(1, obj.getCoordonnee().getX());
-			prepare.setInt(2, obj.getCoordonnee().getY());
-			prepare.setInt(3, obj.getside());
-			prepare.setString(4, obj.getNameForme());
+			prepare.setInt(UN, obj.getCoordonnee().getX());
+			prepare.setInt(DEUX, obj.getCoordonnee().getY());
+			prepare.setInt(TROIS, obj.getside());
+			prepare.setString(QUATRE, obj.getNameForme());
 			int result = prepare.executeUpdate();
 			assert result == 1;
 			System.out.println(result);

@@ -11,7 +11,7 @@ private static final long serialVersionUID = 1L;
 /**
  * * @param message message d'erreur.
  */
-	public FormeDoncExistException(final String message) {
-		super(message);
-	}
+public FormeDoncExistException(final String message) {
+super(message);
+}
 }

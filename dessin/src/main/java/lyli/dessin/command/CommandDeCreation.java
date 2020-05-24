@@ -27,11 +27,11 @@ private Forme forme;
 private DaoFactory factory;
 /**
  * constructeur de la classe CommandDeCreation.
- * @param forme forme à créer
+ * @param formee forme à créer
  *  @throws SQLException lever les Exceptions SQL
  */
-public CommandDeCreation(final Forme forme) throws SQLException {
-	this.forme = forme;
+public CommandDeCreation(final Forme formee) throws SQLException {
+	this.forme = formee;
 	this.factory = new DaoFactory();
 }
 /**

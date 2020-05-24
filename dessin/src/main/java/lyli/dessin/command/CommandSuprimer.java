@@ -26,11 +26,11 @@ public class CommandSuprimer implements CommandS {
 	private DaoFactory factory;
 	/**
 	 * constructeur de la classe CommandSuprimer.
-	 * @param forme forme à suprimer
+	 * @param formee forme à suprimer
 	 *  @throws SQLException lever les Exceptions SQL
 	 */
-	public CommandSuprimer(final Forme forme) throws SQLException {
-		this.forme = forme;
+	public CommandSuprimer(final Forme formee) throws SQLException {
+		this.forme = formee;
 		this.factory = new DaoFactory();
 	}
 	/**

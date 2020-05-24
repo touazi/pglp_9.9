@@ -1,5 +1,5 @@
 package lyli.dessin;
-/**
+/**.
  * <b>"L'implementation de la class DrawingTUI."</b>
  * @author TOUAZI,Lylia
  */
@@ -22,31 +22,31 @@ private Coordonnee centre;
 private int rayon;
 /**
  * Constructeur de la class Cercle.
- * @param nameForme le nom de la du Cercle.
- * @param centre    la position du centre
- * @param rayon     le rayon du cercle
+ * @param nameFormee le nom de la du Cercle.
+ * @param centree    la position du centre
+ * @param rayonn     le rayon du cercle
  */
-public Cercle(final String nameForme, final
-		Coordonnee centre, final int rayon) {
-	super(nameForme);
-	this.centre = centre.copy();
-	this.rayon = rayon;
-	this.nameForme = nameForme;
+public Cercle(final String nameFormee, final
+		Coordonnee centree, final int rayonn) {
+	super(nameFormee);
+	this.centre = centree.copy();
+	this.rayon = rayonn;
+	this.nameForme = nameFormee;
 }
 /**
  * la methode move.
  * <p>
  * pour déplacer la Cercle
  * </p>
- * @param nameForme le nom de la du Cercle.
- * @param x         le décalage de la coorrdonnee sur l'ax des X
- * @param y         le décalage de la coorrdonnee sur l'ax des Y
+ * @param nameFormee le nom de la du Cercle.
+ * @param xx         le décalage de la coorrdonnee sur l'ax des X
+ * @param yy         le décalage de la coorrdonnee sur l'ax des Y
  */
 @Override
-public final void move(final String nameForme, final
-		int x, final int y) {
-	centre.setX(centre.getX() + x);
-	centre.setY(centre.getY() + y);
+public final void move(final String nameFormee, final
+		int xx, final int yy) {
+	centre.setX(centre.getX() + xx);
+	centre.setY(centre.getY() + yy);
 }
 /**
  * la methode affiche. affiche les information du cercle

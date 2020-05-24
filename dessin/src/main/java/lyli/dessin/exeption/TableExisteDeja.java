@@ -8,10 +8,10 @@ public class TableExisteDeja extends Exception {
 * */
 private static final long serialVersionUID = 1L;
 /**.
- * *
+ * *TableExisteDeja.
  * @param message message d'erreur.
  */
 public TableExisteDeja(final String message) {
 super(message);
-	}
+}
 }

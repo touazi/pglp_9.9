@@ -12,6 +12,6 @@ private static final long serialVersionUID = 1L;
  * * @param message message d'erreur.
  */
 public FormeExisteDeja(final String message) {
-	super(message);
-	}
+super(message);
+}
 }

@@ -11,6 +11,6 @@ public class Commandexit implements CommandS {
 @Override
 public final void execute() {
 // TODO Auto-generated method stub
-	System.exit(0);
-	}
+System.exit(0);
+}
 }

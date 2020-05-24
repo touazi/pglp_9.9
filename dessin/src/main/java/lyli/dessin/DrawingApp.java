@@ -225,7 +225,7 @@ public class DrawingApp {
 			System.err.println("Le nom du fichier dois pas"
 					+ " etre composer que des espaces ");
 		}
-		}	
+		}
 		// s.close();
 		CeartionBDDREBY nn = new CeartionBDDREBY(name);
 		nn.createTables();

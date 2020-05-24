@@ -1,21 +1,8 @@
 package lyli.dessin;
 
-import static org.junit.Assert.*;
-
-import java.sql.SQLException;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import lyli.dessin.DAO.DAO;
-import lyli.dessin.DAO.DaoFactory;
-import lyli.dessin.exeption.FormeDoncExistException;
-import lyli.dessin.exeption.FormeExisteDeja;
-
 public class TestDAO {
 
-	Triangle triangle;
+/*	Triangle triangle;
 	Carre carre;
 	Cercle cercle;
 	Rectangle rectangle;
@@ -133,5 +120,5 @@ public class TestDAO {
 	@After
 	public void tearDown() throws Exception {
 		factory.disconnect();
-	}
+	}*/
 }

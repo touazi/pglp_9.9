@@ -44,10 +44,10 @@ static final int SIX = 6;
 static final int SEPT = 7;
 /**
  * constructeur de la classe JdbsDaoGroupeDerby.
- * @param connect Connection à la base de donnée.
+ * @param connectt Connection à la base de donnée.
  */
-public JdbsDaoGroupeDerby(final Connection connect) {
-	this.connect = connect;
+public JdbsDaoGroupeDerby(final Connection connectt) {
+	this.connect = connectt;
 }
 /**
  * methode create GroupeForme.
@@ -274,7 +274,7 @@ for (Forme forme : obj.getListForm()) {
 + "and nom = ? ";
 	prepare = connect.prepareStatement(sql);
 	String nomObjet = obj.getNameForme();
-	String nomForme = forme.getNameForme();	
+	String nomForme = forme.getNameForme();
 	prepare.setString(1, nomObjet);
 	prepare.setString(2, nomForme);
 	int result1 = prepare.executeUpdate();

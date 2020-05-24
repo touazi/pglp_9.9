@@ -26,32 +26,32 @@ public class Triangle extends Forme implements java.io.Serializable {
 	private Coordonnee point3;
 	/**
 	 * Constructeur de la class Triangle.
-	 * @param nameForme le nom de la du Triangle.
-	 * @param point1    le point1 du Triangle.
-	 * @param point2    le point2 du Triangle.
-	 * @param point3    le point3 du Triangle.
+	 * @param nameFormee le nom de la du Triangle.
+	 * @param point11    le point1 du Triangle.
+	 * @param point22    le point2 du Triangle.
+	 * @param point33    le point3 du Triangle.
 	 */
-	public Triangle(final String nameForme,
-			final Coordonnee point1,
-			final Coordonnee point2,
-			final Coordonnee point3) {
-		super(nameForme);
-		this.nameForme = nameForme;
-		this.point1 = point1.copy();
-		this.point2 = point2.copy();
-		this.point3 = point3.copy();
+	public Triangle(final String nameFormee,
+			final Coordonnee point11,
+			final Coordonnee point22,
+			final Coordonnee point33) {
+		super(nameFormee);
+		this.nameForme = nameFormee;
+		this.point1 = point11.copy();
+		this.point2 = point22.copy();
+		this.point3 = point33.copy();
 	}
 	/**
 	 * la methode move.
 	 * <p>
 	 * pour déplacer la Triangle
 	 * </p>
-	 * @param nameForme le nom de la du Triangle.
+	 * @param nameFormee le nom de la du Triangle.
 	 * @param x         le décalage des coorrdonnees sur l'ax des X
 	 * @param y         le décalage des coorrdonnees sur l'ax des Y
 	 */
 	@Override
-	public final void move(final String nameForme, final int x,
+	public final void move(final String nameFormee, final int x,
 			 final int y) {
 		this.point1.setX(this.point1.getX() + x);
 		this.point1.setY(this.point1.getY() + y);

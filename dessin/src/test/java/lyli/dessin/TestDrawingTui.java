@@ -48,9 +48,9 @@ public class TestDrawingTui {
 		name = "Ce1";
 		Cercle c = (Cercle) cercle;
 		assertEquals(cercle.getNameForme(), name);
-		assertEquals(c.centre.getX(), 1);
-		assertEquals(c.centre.getY(), 1);
-		assertEquals(c.rayon, 3);
+		assertEquals(c.getCoordonnee().getX(), 1);
+		assertEquals(c.getCoordonnee().getY(), 1);
+		assertEquals(c.getrayon(), 3);
 
 	}
 
@@ -96,9 +96,9 @@ public class TestDrawingTui {
 		name = "Ce1";
 		Cercle c = (Cercle) cercle;
 		assertEquals(cercle.getNameForme(), name);
-		assertEquals(c.centre.getX(), 1);
-		assertEquals(c.centre.getY(), 1);
-		assertEquals(c.rayon, 3);
+		assertEquals(c.getCoordonnee().getX(), 1);
+		assertEquals(c.getCoordonnee().getY(), 1);
+		assertEquals(c.getrayon(), 3);
 
 	}
 
