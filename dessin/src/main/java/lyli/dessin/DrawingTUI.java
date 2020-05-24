@@ -659,9 +659,7 @@ while (result.next()) {
 			formes = new ArrayList<Forme>();
 		}
 		for (Forme f : formes) {
-			//if (f.isGroupe()) {
 				f.affiche();
-			//}
 		}
 	}
 }
